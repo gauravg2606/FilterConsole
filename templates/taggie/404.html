@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+    <style>
+
+
+
+    </style>
+
+
+
+    <!-- NAV CSS--
+    <style>
+
+        body {
+  padding-top: 80px;
+    }
+
+    nav a {
+      padding-top: 20px !important;
+      padding-bottom: 20px !important;
+      font-size: 18px;
+    }
+
+    nav .navbar-toggle {
+      margin: 13px 15px 13px 0;
+    }
+
+    .navbar-brand {
+      font-size: 30px;
+    }
+/* from gisc*/
+    nav > ul > li {
+          padding: 0 0.778em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.778em;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+    }
+    nav>ul>li{
+        font-family:'Montserrat', sans-serif;
+        }
+    nav > ul > li > a {
+  line-height: 3rem;
+}/* end from gisc*/
+    nav.navbar.shrink {
+      min-height: 35px;
+    }
+
+    nav.shrink a {
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      font-size: 15px;
+      hover:{color:#D9EDF7;}
+    }
+
+    nav.shrink .navbar-brand {
+      font-size: 25px;
+    }
+
+    nav.shrink .navbar-toggle {
+      padding: 4px 5px;
+      margin: 8px 15px 8px 0;
+    }
+
+
+    </style>
+
+    <!-- END ON NAV CSS-->
+
+    <!-- START OF NAV JS-->
+    <script>
+        $(window).scroll(function() {
+  if ($(document).scrollTop() > 50) {
+    $('nav').addClass('shrink');
+  } else {
+    $('nav').removeClass('shrink');
+  }
+});
+    </script>
+
+    <!-- END OF NAV JS--->
+
+
+    <style>
+    .sticker_image{
+        width:300px;
+        height:300px;
+    }
+    .center_al{
+        background: black;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) }
+</style>
+    <script>
+    $(document).ready(function(){
+        $(".slideup").hover(function(){
+            $("p").toggle(500);
+        });
+    });
+</script>
+</head>
+<body>
+<!--- START OF NAVIGATION BAR-->
+
+<nav class="navbar  navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="http://s3-ap-southeast-1.amazonaws.com/hike-giscassets/phase2/phase2-assets/img/logo.png" width="300" height="50"></a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav pull-right">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<!-- END OF NAVIGATION BAR-->
+
+
+    <div class="container">
+        <div class="jumbotron">
+
+            <div class="page-header">
+<div class="panel  alert-danger">
+   <h1 > Danger zone!!<br>Something is wrong</h1>
+</div>
+            <!--<h2>Category: {{sticker.category}} </h2>-->
+            <!--<h3>    Sticker name : {{sticker.name}}</h3>-->
+            <div class="row">
+            {% if error_message %}
+                <p>{{error_message}}</p>
+            {% endif %}
+
+            <div class="col-md-6 col-ln-6">
+                <div class="thumbnail">
+                    <div class="content panel panel-info">
+
+
+                    <p class="panel-heading"><div class="alert alert-danger" role="alert">
+  <a href="#" class="alert-link">Danger zone!!Something is wrong</a>
+</div></p>
+                    <img src="http://hike.in/sticker?catId=smileyexpressions&stId=012_drunk.png&image=true&resId=HDPI"  class="sticker_image" >
+                         <div class="caption slideup">
+                            <a href="/tag/category/">Click here to get back to safe zone!</a>
+
+                </div>
+
+                        </div> <!-- END OF CAPTION-->
+            </div>
+            </div>
+<div class="col-md-6 col-ln-6">
+                <div class="thumbnail">
+                    <div class="content panel panel-info">
+
+
+                    <p class="panel-heading"><div class="alert alert-danger" role="alert">
+  <a href="/tag/category/" class="alert-link">Clicke here to go back to safety</a>
+</div></p>
+                    <img src="http://hike.in/sticker?catId=smileyexpressions&stId=012_drunk.png&image=true&resId=HDPI"  class="sticker_image" >
+                         <div class="caption slideup">
+                            <a href="/tag/category/">Click here to get back to safe zone!</a>
+
+                </div>
+
+                        </div> <!-- END OF CAPTION-->
+            </div>
+            </div>
+
+
+                </div>
+
+        </div>
+       </div>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
+

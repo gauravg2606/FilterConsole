@@ -1,0 +1,10 @@
+theme
+emotion
+feeling
+behaviour
+reaction
+smiley
+response
+general
+other
+regional

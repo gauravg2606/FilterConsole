@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Category|StickerTagger </title>
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style>
+
+    .thumbnail{
+      box-shadow: 6px 1px 20px rgba(186, 182, 182, 1);
+      }
+
+    .sticker_thumb {
+    height:300px;
+    width:300px;
+    }
+
+
+    .navbaro {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      //background-color: #d9edf7;
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+
+    <div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+        <a href="#" class="navbar-brand  btn-lg">
+          <span class="glyphicon glyphicon-heart"></span> Sticker Taggie
+      </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ><a href="/tag/"><span class="glyphicon glyphicon-home"></span> home</a></li>
+              <li><a href="{% url 'cat_list' %}"><span class="glyphicon glyphicon-star"></span> Sticker categories</a></li>
+
+            </ul>
+              <ul class="nav navbar-nav navbar-right">
+              <li ><a href="#">かいぞく</a></li>
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+        <!--<div class="jumbotron">-->
+            <div class="page-header">
+  <h2>Categories<br/></h2>
+
+   <blockquote>
+  <p >To a great mind, Nothing is little. </p>
+  <footer >Someone famous <cite title="Source Title">Good luck guessing.</cite></footer>
+</blockquote>
+
+    </div>
+
+
+
+            <!--<div class="media">-->
+  <!--<div class="media-left media-middle alert-warn">-->
+    <!--<a href="#">-->
+      <!--<img class="media-object" src="http://s3-ap-southeast-1.amazonaws.com/hike-giscassets/phase2/phase2-assets/img/logo.png" alt="...">-->
+    <!--</a>-->
+  <!--</div>-->
+            <!--<h3> Categories   </h3>-->
+            <div class="row">
+            {% if error_message %}
+                <p>{{error_message}}</p>
+            {% endif %}
+            {% if categories_list %}
+            {% for category in categories_list %}
+              <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="content panel panel-info">
+
+
+                        <p class="panel-heading">{{category.name}}</p><!--<p class="panel-body">{{sticker.name}} <br/></p>-->
+                            <img src="http://staging.im.hike.in/sticker?catId={{category.name}}&stId={{category.banner}}&image=true" alt="{{category.banner}}" class="sticker_thumb">
+                        <a class="btn btn-info btn-group-justified" href="{% url 'category' category.name %}">More at..</a>
+                    </div>
+                    <!--<img src="http://hike.in/sticker?catId={{category.name}}&stId={{category.banner}}&image=true&resId=HDPI"   width="300" >-->
+                         <!--<div class="caption">-->
+
+
+                        <!--</div>-->
+
+                        </div> <!-- END OF CAPTION-->
+
+                        <br/>
+
+               </div>
+                {% endfor %}
+
+            {% endif %}
+            </div>
+
+        <!--</div>-->
+       </div>
+</body>
+</html>

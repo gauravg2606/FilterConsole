@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 50%;
+      margin: auto;
+  }
+  .hike_image {
+       height: 300px;
+        width: 300px;
+      }
+   h1.white-text{
+      color:rgb(124, 156, 163);
+      }
+  </style>
+<body>
+
+<div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+        <a href="#" class="navbar-brand  btn-lg">
+          <span class="glyphicon glyphicon-heart"></span> Sticker Taggie
+      </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ><a href="/tag/"><span class="glyphicon glyphicon-home"></span> home</a></li>
+              <li><a href="{% url 'cat_list' %}"><span class="glyphicon glyphicon-star"></span> Sticker categories</a></li>
+              <li class="active" ><a href="#">{{category|capfirst}} category</a></li>
+            </ul>
+              <ul class="nav navbar-nav navbar-right">
+              <li ><a href="#">かいぞく</a></li>
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+
+        {% if category_stickers_list %}
+
+            <h1 class="white-text " align="center">{{category}}</h1>
+
+        {% for sticker in category_stickers_list %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="content panel panel-info">
+
+
+                        <p class="panel-heading">{{sticker.name}}</p><!--<p class="panel-body">{{sticker.name}} <br/></p>-->
+                            <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true" alt="{{sticker.name}}" class="hike_image" >
+                        <a class="btn btn-info btn-group-justified" href="{% url 'details' sticker.id %}">Details</a>
+                    </div>
+                </div>
+             </div>
+
+            {% endfor %}
+        {% endif %}
+    </div>
+
+</div>
+
