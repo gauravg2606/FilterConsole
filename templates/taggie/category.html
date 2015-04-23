@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bootstrap Example</title>
+<title>Taggie | {{category|capfirst}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -46,6 +46,7 @@
               <li class="active" ><a href="#">{{category|capfirst}} category</a></li>
             </ul>
               <ul class="nav navbar-nav navbar-right">
+              <li ><a href="{% url 'tlogout' %}">logout</a></li>
               <li ><a href="#">かいぞく</a></li>
             </ul>
 
