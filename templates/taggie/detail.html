@@ -108,7 +108,7 @@
 
                                 {% if tag_types %}
                                     {% for tag_type in tag_types %}
-                                        <span class="input-group-addon"><input type="checkbox" name="tag_type" value="{{tag_type.name}}"> {{tag_type.name}}</span>
+                                        <span class="input-group-addon"><input type="radio" name="tag_type" value="{{tag_type.name}}"> {{tag_type.name}}</span>
                                     {% if forloop.counter|divisibleby:3 %}
                                         <p></p>
                                     {% endif %}
@@ -132,7 +132,11 @@
                         </div>
 
                     <!--Tag : <input type="text" name="tag"/><br/>-->
+                    {% if sticker_json %}
+                    <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp"> </span>{{sticker_json}}</code></pre></div>
 
+
+                    {% endif %}
                     </div>
 <nav>
   <ul class="pager">

@@ -28,7 +28,7 @@ def details(request, sticker_id):
         sticker = get_object_or_404(Sticker,pk=sticker_id)
     except:
         return render(request,'taggie/404.html',{})
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types})
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json()})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):
@@ -62,12 +62,14 @@ def add_tagtypes(tag_id,tags_types):
 
 @login_required(login_url='/login/')
 def add(request,sticker_id):
-    #print request
+    print request
     s = get_object_or_404(Sticker,pk=sticker_id)
     hash_tags = str(request.POST['tag'])
-    tag_set = hash_tags.replace(" ","").replace('#',"").split(',')
+    tag_set = hash_tags.strip(" ").replace('#',"").split(',')
     tag_themes_list =  request.POST.get('tag_type',[])
     print "tag_type "+str(tag_themes_list)
+    if (not request.POST['tag_type']) and (not request.POST['tag']):
+        return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json()})
     for htag in tag_set:
         if htag == "":
             continue
@@ -77,7 +79,7 @@ def add(request,sticker_id):
             ta.save()
             #add_tagtypes(ta.id, tag_themes_list)
         except ObjectDoesNotExist:
-            ta = s.tag_set.create(name=htag)
+            ta = s.tag_set.create(name=htag,theme=str(request.POST['tag_type']))
             s.save()
         if tag_themes_list is not None:
             if add_tagtypes(ta.id, tag_themes_list):
