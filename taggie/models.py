@@ -8,6 +8,21 @@ from django.utils import timezone
 
 tagthem = {"CTheme":"theme","CEmotion":"emotion","CFeeling":"feeling","CBehaviour":"behaviour","CReaction":"reaction","CSmiley":"smiley","CResponse":"response","CGeneral":"general","COther":"other","AFestival":"festival"}
 
+
+### General function
+def get_names_of_list(list_to):
+    """
+    Assumes there is a name attribute to whatwever is being passed
+    :param list_to: list of objects having name attribute
+    :return:
+    """
+    return [tg.name for tg in list_to]
+
+
+def search_for(term):
+    return Sticker.objects.filter(name__icontains=term)
+
+
 class Category(models.Model):
     name= models.CharField(max_length=25)
     rating = models.IntegerField(default=0)
@@ -21,6 +36,8 @@ class Category(models.Model):
     @staticmethod
     def get_all_categories():
         return Category.objects.all()
+
+
 
 class Sticker(models.Model):
     name = models.CharField(max_length=40)
@@ -52,17 +69,10 @@ class Sticker(models.Model):
         return Sticker.objects.filter(category=category)
 
 
-    def get_names_of_list(self,list_to):
-        """
-        Assumes there is a name attribute to whatwever is being passed
-        :param list_to: list of objects having name attribute
-        :return:
-        """
-        return [tg.name for tg in list_to]
 
 
     def get_tagnames_for_theme(self,tagtheme):
-        return self.get_names_of_list(list_to = self.tag_set.filter(theme=tagtheme))
+        return get_names_of_list(list_to = self.tag_set.filter(theme=tagtheme))
 
     def make_json(self):
         """
@@ -84,10 +94,16 @@ class Sticker(models.Model):
         "AFestival" : ["festival1"]
         },"""
         josn = {}
+        josn["cat_id"] = [self.category]
+        josn["sticker"] = [self.name]
         for k,v in tagthem.items():
             josn[k] = self.get_tagnames_for_theme(tagtheme=v)
 
         return josn
+
+    def make_json_str(self):
+        return str(self.make_json()).replace("u'","'")
+
 
 
 class Tag(models.Model):

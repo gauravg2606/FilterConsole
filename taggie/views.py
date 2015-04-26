@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from taggie.models import Sticker, Tag, Category , TagType
+from taggie.models import *
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -28,7 +28,7 @@ def details(request, sticker_id):
         sticker = get_object_or_404(Sticker,pk=sticker_id)
     except:
         return render(request,'taggie/404.html',{})
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json()})
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str()})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):
@@ -62,14 +62,19 @@ def add_tagtypes(tag_id,tags_types):
 
 @login_required(login_url='/login/')
 def add(request,sticker_id):
-    print request
+    #print request
     s = get_object_or_404(Sticker,pk=sticker_id)
-    hash_tags = str(request.POST['tag'])
+
+
+    try:
+        theme_type = request.POST['tag_type']
+        hash_tags = str(request.POST.get('tag'))
+    except:
+        return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json_str()})
+
     tag_set = hash_tags.strip(" ").replace('#',"").split(',')
     tag_themes_list =  request.POST.get('tag_type',[])
     print "tag_type "+str(tag_themes_list)
-    if (not request.POST['tag_type']) and (not request.POST['tag']):
-        return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json()})
     for htag in tag_set:
         if htag == "":
             continue
@@ -79,7 +84,7 @@ def add(request,sticker_id):
             ta.save()
             #add_tagtypes(ta.id, tag_themes_list)
         except ObjectDoesNotExist:
-            ta = s.tag_set.create(name=htag,theme=str(request.POST['tag_type']))
+            ta = s.tag_set.create(name=htag,theme=str(theme_type))
             s.save()
         if tag_themes_list is not None:
             if add_tagtypes(ta.id, tag_themes_list):
@@ -124,6 +129,40 @@ def basic_http_auth(f):
         return r
 
     return wrap
+
+@login_required
+def search_stick(request):
+    try:
+        if request.GET['search'] != "":
+            srch_word = request.GET['search']
+        else:
+            return  render(request,'taggie/search.html',{'error_message':"Please fill the search field"}) #error_message
+        if len(request.GET['search']) >= 3:
+            srch_word = request.GET['search']
+        else:
+            return  render(request,'taggie/search.html',{'error_message':"Atleast three  characters to search for"}) #error_message
+
+    except:
+        return  render(request,'taggie/search.html',{'error_message':"Please fill the search field"}) #error_message
+    res = search_for(term=srch_word)
+    print "reuslt s "+str(res)
+    if not res:
+
+        return  render(request,'taggie/search.html',{'error_message':"No results found"}) #error_message
+    return render(request,'taggie/search.html',{'results':res})
+
+@login_required
+def search_stickers(request,sticker_nm):
+    print request
+    # print "\nsticker serach temr"+str(sticker_nm)
+    if sticker_nm is None:
+        return HttpResponseRedirect('/tag/')
+    res = search_for(term=sticker_nm)
+    print str(res)
+    return render(request,'taggie/search.html',{'results':res})
+
+
+
 
 @login_required(login_url='/login/')
 def logger_out(request):

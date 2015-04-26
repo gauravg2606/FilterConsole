@@ -7,7 +7,13 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <style>
+  <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <style>
+
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
       width: 50%;
@@ -46,6 +52,12 @@
               <li class="active" ><a href="#">{{category|capfirst}} category</a></li>
             </ul>
               <ul class="nav navbar-nav navbar-right">
+                  <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search_stick' %}">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search" name="search" data-toggle="tooltip" data-placement="left" title="sticker name">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </form>
               <li ><a href="{% url 'tlogout' %}">logout</a></li>
               <li ><a href="#">かいぞく</a></li>
             </ul>

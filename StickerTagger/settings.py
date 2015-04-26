@@ -111,6 +111,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+)
+
 GOOGLE_OAUTH2_CLIENT_ID = "974130700916-acfouldofrdrv0ig7rique16f1c1nn9i.apps.googleusercontent.com"
 GOOGLE_OAUTH2_CLIENT_SECRET = "8nzzGNB7KBnPDyImh5Dh1HMa"
 GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}

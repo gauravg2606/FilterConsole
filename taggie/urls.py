@@ -12,6 +12,8 @@ urlpatterns =patterns("",
             url(r'(?P<sticker_id>\d+)/add/$', views.add, name='add'),
             url(r'(?P<catid>.*)/category/$', views.category, name='category'),
             url(r'^categories/$', views.cat_list, name='cat_list'),
+            url(r'^sticker/(?P<sticker_nm>.*)/search/$', views.search_stickers, name='search_stickers'),
+            url(r'^sticker/search/$', views.search_stick, name='search_stick'),
             url(r'^logout/$', views.logger_out, name='tlogout'),
 )
 

@@ -7,7 +7,12 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <style>
+  <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <style>
   .thumbnail{
       box-shadow: 6px 1px 20px rgba(186, 182, 182, 1);
       }
@@ -36,6 +41,12 @@
               <li><a href="{% url 'cat_list'%}"><span class="glyphicon glyphicon-star"></span> Sticker categories</a></li>
             </ul>
               <ul class="nav navbar-nav nav-brand navbar-right">
+                  <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search_stick' %}">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search" name="search" data-toggle="tooltip" data-placement="left" title="sticker name">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </form>
                   <li ><a href="{% url 'tlogout' %}">logout</a></li>
               <li ><a href="#"><b>かいぞく</b></a></li>
             </ul>
