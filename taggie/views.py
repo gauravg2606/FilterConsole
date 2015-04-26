@@ -140,7 +140,7 @@ def search_stick(request):
         if len(request.GET['search']) >= 3:
             srch_word = request.GET['search']
         else:
-            return  render(request,'taggie/search.html',{'error_message':"Atleast three  characters to search for"}) #error_message
+            return  render(request,'taggie/search.html',{'keyterm':srch_word,'error_message':"Atleast three  characters to search for"}) #error_message
 
     except:
         return  render(request,'taggie/search.html',{'error_message':"Please fill the search field"}) #error_message
@@ -148,8 +148,8 @@ def search_stick(request):
     print "reuslt s "+str(res)
     if not res:
 
-        return  render(request,'taggie/search.html',{'error_message':"No results found"}) #error_message
-    return render(request,'taggie/search.html',{'results':res})
+        return  render(request,'taggie/search.html',{'keyterm':srch_word,'error_message':"No results found"}) #error_message
+    return render(request,'taggie/search.html',{'keyterm':srch_word,'results':res})
 
 @login_required
 def search_stickers(request,sticker_nm):

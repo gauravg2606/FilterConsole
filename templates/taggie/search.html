@@ -35,6 +35,16 @@
   height: 60px;
   background-color: rgba(158, 244, 234, 0.48);
 }
+        .bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+        .bs-callout-info {
+  border-left-color: #1b809e;
+}
 </style>
 </head>
 <body>
@@ -72,14 +82,18 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-
+         {% if keyterm %}
+                <div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin">
+                    <h3>Searched for <code>{{keyterm}}</code> </h3>
+                  </div>
+                {% endif %}
         <div class="jumbotron">
-            <div class="page-header">
-  <!--<h1>Category: {{sticker.category}} <small>Sticker name : {{sticker.name}}</small></h1>-->
-</div>
             <!--<h2>Category: {{sticker.category}} </h2>-->
             <!--<h3>    Sticker name : {{sticker.name}}</h3>-->
+
             <div class="row">
+
+
             {% if error_message %}
                 <div class="alert alert-danger" role="alert">
                     <p class="">{{error_message}}</p>
