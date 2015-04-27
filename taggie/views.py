@@ -8,6 +8,9 @@ from django.contrib.auth import logout
 # Create your views here.
 from functools import wraps
 import base64
+import logging
+
+logger = logging.getLogger('taggie')
 
 ["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]
 
@@ -23,7 +26,8 @@ def index(request):
 @login_required(login_url='/login/')
 def details(request, sticker_id):
     #print request
-    print "sticker id is "+str(sticker_id)
+    #print "sticker id is "+str(sticker_id)
+    logger.info("Sticker id is "+sticker_id)
     try:
         sticker = get_object_or_404(Sticker,pk=sticker_id)
     except:
@@ -54,9 +58,11 @@ def add_tagtypes(tag_id,tags_types):
                 tag_.tagtheme_set.create(name=tag_type)
     except ObjectDoesNotExist as e:
         print "1"+e.message
+        logger.debug("1"+e.message)
         return False
     except Exception as e:
         print "2"+e.message
+        logger.debug("2"+e.message)
         return False
     return True
 
@@ -75,6 +81,7 @@ def add(request,sticker_id):
     tag_set = hash_tags.strip(" ").replace('#',"").split(',')
     tag_themes_list =  request.POST.get('tag_type',[])
     print "tag_type "+str(tag_themes_list)
+    logger.info("tag_type "+str(tag_themes_list))
     for htag in tag_set:
         if htag == "":
             continue
@@ -88,9 +95,9 @@ def add(request,sticker_id):
             s.save()
         if tag_themes_list is not None:
             if add_tagtypes(ta.id, tag_themes_list):
-                print "Tag themes added"
+                logger.info("Tag themes added")
             else:
-                print "Tag themes not updated"
+                logger.debug("Tag themes not updated")
     # return HttpResponseRedirect("/tag/"))
     return HttpResponseRedirect('/tag/'+sticker_id)
 # def add(request, ,sticker_id, tag):
@@ -102,7 +109,7 @@ def add(request,sticker_id):
 @login_required(login_url='/login/')
 def category(request,catid):
     # lister = category_stickers_list
-    print "catid is"+str(catid)
+    #print "catid is"+str(catid)
     context ={"category_stickers_list":Sticker.get_category_stickers(catid),"category":catid}
     return render(request,'taggie/category.html',context)
 
