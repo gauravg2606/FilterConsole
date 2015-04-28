@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" >
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="/static/js/jquery.js"></script> <script type="text/javascript" src="/static/js/jquery.zclip.js"></script>
     <script>
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
@@ -91,7 +87,7 @@
 
 
                     <p class="panel-heading">{{sticker.name}}</p>
-                    <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true&resId=HDPI"  class="sticker_image" >
+                    <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true&resId=HDPI" width="300" height="300" class="sticker_image" >
                          <div class="caption">
                             <p class="panel-body">
                              {% for tag in sticker.tag_set.all %}
@@ -163,6 +159,7 @@
        </div>
         </div>
 
-
+<script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+<script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
 </body>
 </html>

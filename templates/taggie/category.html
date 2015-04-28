@@ -5,8 +5,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script>
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
@@ -78,7 +76,7 @@
 
 
                         <p class="panel-heading">{{sticker.name}}</p><!--<p class="panel-body">{{sticker.name}} <br/></p>-->
-                            <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true" alt="{{sticker.name}}" class="hike_image" >
+                            <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true" width="300" height="300" alt="{{sticker.name}}" class="hike_image" >
                         <a class="btn btn-info btn-group-justified" href="{% url 'details' sticker.id %}">Details</a>
                     </div>
                 </div>
@@ -87,6 +85,7 @@
             {% endfor %}
         {% endif %}
     </div>
-
+<script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+<script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
 </div>
 

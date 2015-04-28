@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taggie',
-    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,16 +60,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
    'django.core.context_processors.static',
    'django.core.context_processors.tz',
    'django.contrib.messages.context_processors.messages',
-   'social.apps.django_app.context_processors.backends',
-   'social.apps.django_app.context_processors.login_redirect',
 )
 
-AUTHENTICATION_BACKENDS = (
-   'social.backends.facebook.FacebookOAuth2',
-   'social.backends.google.GoogleOAuth2',
-   'social.backends.twitter.TwitterOAuth',
-   'django.contrib.auth.backends.ModelBackend',
-)
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = "/tag/"
 LOGIN_ERROR_URL = "/"
@@ -85,13 +76,24 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates')]
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 
+
+DATABASES = {
+     'default': {
+	'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'taggie',
+        'USER': 'hike',
+        'PASSWORD': 'h1kerS3my59l',
+        'HOST': '10.0.1.252', # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+      }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
