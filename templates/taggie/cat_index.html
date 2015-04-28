@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <title>Category|StickerTagger </title>
     <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" >
-
-    <script>
-        $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
     <style>
 
     .thumbnail{
@@ -83,13 +77,6 @@
 
 
 
-            <!--<div class="media">-->
-  <!--<div class="media-left media-middle alert-warn">-->
-    <!--<a href="#">-->
-      <!--<img class="media-object" src="http://s3-ap-southeast-1.amazonaws.com/hike-giscassets/phase2/phase2-assets/img/logo.png" alt="...">-->
-    <!--</a>-->
-  <!--</div>-->
-            <!--<h3> Categories   </h3>-->
             <div class="row">
             {% if error_message %}
                 <p>{{error_message}}</p>
@@ -125,5 +112,10 @@
        </div>
         <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
 <script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
+        <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 </html>

@@ -78,7 +78,7 @@ def add(request,sticker_id):
     except:
         return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json_str()})
 
-    tag_set = hash_tags.strip(" ").replace('#',"").split(',')
+    tag_set = hash_tags.strip(" ").replace(' ',",").split(',')
     tag_themes_list =  request.POST.get('tag_type',[])
     print "tag_type "+str(tag_themes_list)
     logger.info("tag_type "+str(tag_themes_list))
