@@ -108,7 +108,7 @@ class Sticker(models.Model):
 
 class Tag(models.Model):
     sticker = models.ForeignKey(Sticker)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100 )
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     #theme =["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]
