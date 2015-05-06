@@ -83,6 +83,7 @@ def add(request,sticker_id):
     print "tag_type "+str(tag_themes_list)
     logger.info("tag_type "+str(tag_themes_list))
     for htag in tag_set:
+        htag = htag.strip(" ")
         if htag == "":
             continue
         try:
