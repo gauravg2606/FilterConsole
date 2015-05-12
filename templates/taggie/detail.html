@@ -59,6 +59,9 @@
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                 </form>
               <li ><a href="/admin/taggie/sticker/{{sticker.id}}" target="_blank">Edit</a></li>
+              {% if user %}
+                  <li ><a href="" >Hi, {{user}}</a></li>
+               {% endif %}
               <li ><a href="{% url 'tlogout' %}">logout</a></li>
                   <li ><a href="#">かいぞく</a></li>
             </ul>
@@ -141,7 +144,12 @@
                     <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp"> </span>{{sticker_json}}</code></pre></div>
 
 
-                    {% endif %}
+                        {% endif %}
+                    <form method="POST" action="{% url 'dtags' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="sid" value="{{sticker.id}}">
+                    <input type="submit" id="dtags" name="dtags" class="btn btn-danger" style="width:100%;" value="Delete all tags"/>
+                    </form>
                     </div>
 <nav>
   <ul class="pager">
@@ -158,6 +166,27 @@
 <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
 <script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
 <script>
+    $("#dtags").click(function(event){
+
+        if (confirm("Are you sure") == true) {
+            if(confirm("Let me ask you once more. You sure about this?") == true){
+
+            }
+            else{
+                event.preventDefault();
+                return false;
+            }
+
+    } else {
+        x = "You pressed Cancel!";
+        event.preventDefault();
+        return false;
+    }
+    });
+
+</script>
+
+    <script>
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
         })

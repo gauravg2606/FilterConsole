@@ -16,5 +16,6 @@ urlpatterns =patterns("",
             url(r'^sticker/search/$', views.search_stick, name='search_stick'),
             url(r'^logout/$', views.logger_out, name='tlogout'),
             url(r'^finale/$', views.gisc_finale, name='finale'),
+            url(r'^dtags/$', views.delete_tags, name='dtags'),
 )
 

@@ -68,7 +68,10 @@ class Sticker(models.Model):
     def get_category_stickers(category):
         return Sticker.objects.filter(category=category)
 
-
+    def del_all_tags(self):
+        k = self.tag_set.all()
+        k.delete()
+        return True
 
 
     def get_tagnames_for_theme(self,tagtheme):

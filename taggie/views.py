@@ -32,7 +32,7 @@ def details(request, sticker_id):
         sticker = get_object_or_404(Sticker,pk=sticker_id)
     except:
         return render(request,'taggie/404.html',{})
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str()})
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(request.user)})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):
@@ -161,7 +161,7 @@ def search_stick(request):
 
 @login_required
 def search_stickers(request,sticker_nm):
-    print request
+    #print request
     # print "\nsticker serach temr"+str(sticker_nm)
     if sticker_nm is None:
         return HttpResponseRedirect('/tag/')
@@ -170,6 +170,16 @@ def search_stickers(request,sticker_nm):
     return render(request,'taggie/search.html',{'results':res})
 
 
+@login_required
+def delete_tags(request):
+
+    try:
+        sticker_id = request.POST['sid']
+        sticker = get_object_or_404(Sticker,pk=sticker_id)
+    except:
+        return render(request,'taggie/404.html',{})
+    tags_l = sticker.del_all_tags()
+    return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':sticker.make_json_str()})
 
 
 @login_required(login_url='/login/')
@@ -181,5 +191,7 @@ def logger_out(request):
 def auth_tester(request):
     return HttpResponse("You are authenticated")
 
+@login_required(login_url='/login/')
 def gisc_finale(request):
+    print str(request.user)
     return render(request,'taggie/finale.html')
