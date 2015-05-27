@@ -32,7 +32,13 @@ def details(request, sticker_id):
         sticker = get_object_or_404(Sticker,pk=sticker_id)
     except:
         return render(request,'taggie/404.html',{})
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(request.user)})
+
+    if str(request.user) == 'patley':
+        user_id = 'Ranma'
+    else:
+        print str(request.user)
+        user_id = request.user
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id)})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):

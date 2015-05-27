@@ -3,10 +3,10 @@ import datetime
 ## Django imports
 from django.db import models
 from django.utils import timezone
-
+import json
 # Create your models here.
 
-tagthem = {"CTheme":"theme","CEmotion":"emotion","CFeeling":"feeling","CBehaviour":"behaviour","CReaction":"reaction","CSmiley":"smiley","CResponse":"response","CGeneral":"general","COther":"other","AFestival":"festival"}
+tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*afestival":"festival"}
 
 
 ### General function
@@ -37,6 +37,12 @@ class Category(models.Model):
     def get_all_categories():
         return Category.objects.all()
 
+    @staticmethod
+    def get_category_json(category):
+        for stick in Sticker.objects.filter(category=category):
+            print stick.make_str_json()
+            print "\n"
+        return
 
 
 class Sticker(models.Model):
@@ -67,6 +73,8 @@ class Sticker(models.Model):
     @staticmethod
     def get_category_stickers(category):
         return Sticker.objects.filter(category=category)
+
+
 
     def del_all_tags(self):
         k = self.tag_set.all()
@@ -107,6 +115,8 @@ class Sticker(models.Model):
     def make_json_str(self):
         return str(self.make_json()).replace("u'","'")
 
+    def make_str_json(self):
+        return json.dumps(self.make_json())
 
 
 class Tag(models.Model):
