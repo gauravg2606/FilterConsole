@@ -27,7 +27,19 @@
   height: 60px;
   background-color: rgba(158, 244, 234, 0.48);
 }
+  .english {
+        background-color:rgba(86, 198, 86,1);
+        }
+  .hindi{
+        background-color:rgba(51, 193, 193,1);
+        }
+  .telugu{
+       .btn-warning
+        }
+
 </style>
+
+
 </head>
 <body>
     <div class="container">
@@ -88,13 +100,36 @@
 
                     <p class="panel-heading">{{sticker.name}}</p>
                     <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true&resId=HDPI" width="300" height="300" class="sticker_image" >
-                         <div class="caption">
+
+
+                        <div class="caption">
                             <p class="panel-body">
+                        <form action="/tag/lang/" method="POST">
+                            {% csrf_token %}
                              {% for tag in sticker.tag_set.all %}
 
-                                <button type="button" class="btn btn-success">#{{tag.name}} </button>
+
+                                                            <div class="row">
+                          <div class="col-lg-6">
+                            <div class="input-group">
+                              <span class="input-group-addon">
+                                <input type="checkbox" class="btn btn-info" aria-label="..." name="tag_set" value="{{tag.name}}">
+                              </span>
+                              <input type="button" class="btn btn-info {{tag.lang}}"  value="{{tag.name}}" aria-label="...">
+                            </div><!-- /input-group-->
+                          </div> <!-- /.col-lg-6 -->
+                                    <!--<input type="checkbox" class="form-control" id="makeMeDraggable" name="tag_set" data-tagname="{{tag.name}}">#{{tag.name}}-->
+                                    <!--<input type="checkbox" class="form-control" id="makeMeDraggable" name="tag_set" data-tagname="{{tag.name}}">#{{tag.name}} </button>-->
+                             </div>
+
                             {% endfor %}
-                             </p>
+                            <br/>
+                        <input type="text" name="language" class="form-control" placeholder="language" aria-describedby="sizing-addon2">
+                            <br/>
+                            <input type="hidden" name="sid" value="{{sticker.id}}">
+                            <input type="submit" class="btn btn-success"  value="Submit"/>
+                        </form>
+                            </p>
 
                          </div>
 <p class="panel-heading" align="justify"><a href="{% url 'category' sticker.category %}">{{sticker.category}} </a></p>
@@ -124,7 +159,7 @@
                                 {% endif %}
                                 <!--<input type="checkbox" aria-label="..." value="vehicle" name="vehicle">vehicle<br/>-->
                                 <!--<input type="checkbox" name="tag_type" value="theme">I have a bike<br>-->
-                                <!--&lt;!&ndash;["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]&ndash;&gt;-->
+                                <!--<!--["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]-->
                                 <!--<input type="checkbox" name="tag_type" value="emotion">I have a car-->
                                 <!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
                                 <!--<input type="checkbox" name="tag_type" value="Car">I have a car-->

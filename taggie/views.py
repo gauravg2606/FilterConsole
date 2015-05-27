@@ -32,12 +32,7 @@ def details(request, sticker_id):
         sticker = get_object_or_404(Sticker,pk=sticker_id)
     except:
         return render(request,'taggie/404.html',{})
-
-    if str(request.user) == 'patley':
-        user_id = 'Ranma'
-    else:
-        print str(request.user)
-        user_id = request.user
+    user_id = request.user
     return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id)})
 
 @login_required(login_url='/login/')
@@ -201,3 +196,19 @@ def auth_tester(request):
 def gisc_finale(request):
     print str(request.user)
     return render(request,'taggie/finale.html')
+
+@login_required(login_url='/login/')
+def language_updater(request):
+    if (not request.POST.get('language')) or (not request.POST.get('tag_set')) or (not request.POST.get("sid")):
+        return HttpResponse("You have not filled the required fields")
+
+    try:
+        sticker_id =  request.POST.get("sid")
+        sticker = get_object_or_404(Sticker,pk=sticker_id)
+    except:
+        return render(request,'taggie/404.html',{})
+
+    for tg in  request.POST.getlist('tag_set'):
+        ptag = sticker.tag_set.get(name=tg)
+        ptag.change_lang(request.POST.get('language').strip().lower())
+    return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':sticker.make_json_str()})

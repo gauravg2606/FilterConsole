@@ -126,9 +126,12 @@ class Tag(models.Model):
     downvotes = models.IntegerField(default=0)
     #theme =["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]
     theme = models.CharField(max_length=20)
+    lang = models.CharField(max_length=20,default='english')
     def __str__(self):
         return self.name
-
+    def change_lang(self,langua):
+        self.lang = langua
+        self.save()
 
 class TagTheme(models.Model):
     name = models.CharField(max_length=20)
