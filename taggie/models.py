@@ -81,6 +81,12 @@ class Sticker(models.Model):
         k.delete()
         return True
 
+    def delete_response_tags(self):
+        resp_tags = self.tag_set.filter(theme='response')
+        for tg in resp_tags:
+            tg.delete()
+        return True
+
 
     def get_tagnames_for_theme(self,tagtheme):
         return get_names_of_list(list_to = self.tag_set.filter(theme=tagtheme))
@@ -170,3 +176,13 @@ class TagType(models.Model):
     def get_all_types():
         return TagType.objects.all()
 
+
+class LangType(models.Model):
+    name= models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    @staticmethod
+    def get_all_languages():
+        return LangType.objects.all()

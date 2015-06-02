@@ -29,9 +29,11 @@
 }
   .english {
         background-color:rgba(86, 198, 86,1);
+        background:rgba(86, 198, 86,1);
         }
   .hindi{
         background-color:rgba(51, 193, 193,1);
+        background:rgba(51, 193, 193,1);
         }
   .telugu{
        .btn-warning
@@ -40,6 +42,24 @@
 </style>
 
 
+
+
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+    $(document).ready({
+        function (){
+            $("#language").autocomplete({
+            source:["c++","JAVA"],
+            autoFocus: true,
+            });
+        }
+
+    });
+
+
+
+</script>
 </head>
 <body>
     <div class="container">
@@ -109,11 +129,11 @@
                              {% for tag in sticker.tag_set.all %}
 
 
-                                                            <div class="row">
+                        <div class="row">
                           <div class="col-lg-6">
                             <div class="input-group">
                               <span class="input-group-addon">
-                                <input type="checkbox" class="btn btn-info" aria-label="..." name="tag_set" value="{{tag.name}}">
+                                <input type="checkbox" class="btn btn-info" aria-label="..." name="tag_set" value="{{tag.id}}">
                               </span>
                               <input type="button" class="btn btn-info {{tag.lang}}"  value="{{tag.name}}" aria-label="...">
                             </div><!-- /input-group-->
@@ -124,10 +144,19 @@
 
                             {% endfor %}
                             <br/>
-                        <input type="text" name="language" class="form-control" placeholder="language" aria-describedby="sizing-addon2">
+
+                            {%if lang_options %}
+
+
+                            <select name="language"  class="btn btn-warning" style="width:100%;text-indent:45%;  height: 30px;">
+                                {% for lang in lang_options %}
+                                <option value = "{{lang}}">{{lang}}</option>
+                                {% endfor%}
+                            </select>
+                            {% endif %}
                             <br/>
                             <input type="hidden" name="sid" value="{{sticker.id}}">
-                            <input type="submit" class="btn btn-success"  value="Submit"/>
+                            <input type="submit" class="btn btn-success" style="width:100%;" value="Submit"/>
                         </form>
                             </p>
 
@@ -185,6 +214,12 @@
                         <input type="hidden" name="sid" value="{{sticker.id}}">
                     <input type="submit" id="dtags" name="dtags" class="btn btn-danger" style="width:100%;" value="Delete all tags"/>
                     </form>
+
+                    <form method="POST" action="{% url 'dresptags' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="sid" value="{{sticker.id}}">
+                    <input type="submit" id="dresptags" name="dresptags" class="btn btn-warning" style="width:100%;" value="Delete all response tags"/>
+                    </form>
                     </div>
 <nav>
   <ul class="pager">
@@ -198,10 +233,31 @@
        </div>
         </div>
 
-<script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
-<script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
-<script>
+    <script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
+
+    <script>
     $("#dtags").click(function(event){
+
+        if (confirm("Are you sure") == true) {
+            if(confirm("Let me ask you once more. You sure about this?") == true){
+
+            }
+            else{
+                event.preventDefault();
+                return false;
+            }
+
+    } else {
+        x = "You pressed Cancel!";
+        event.preventDefault();
+        return false;
+    }
+    });
+
+</script>
+
+    <script>
+    $("#dresptags").click(function(event){
 
         if (confirm("Are you sure") == true) {
             if(confirm("Let me ask you once more. You sure about this?") == true){

@@ -76,24 +76,24 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates')]
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-   }
-}
-
-
 # DATABASES = {
-#      'default': {
-# 	'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'taggie',
-#         'USER': 'hike',
-#         'PASSWORD': 'h1kerS3my59l',
-#         'HOST': '10.0.1.252', # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#       }
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
 # }
+
+#
+DATABASES = {
+     'default': {
+	'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'taggie',
+        'USER': 'hike',
+        'PASSWORD': 'h1kerS3my59l',
+        'HOST': '10.0.1.141', # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+      }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 

@@ -14,6 +14,7 @@ logger = logging.getLogger('taggie')
 
 ["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]
 
+LANGUAGES_LIST  = LangType.get_all_languages()
 tag_types = TagType.get_all_types()
 
 @login_required(login_url='/login/')
@@ -33,7 +34,7 @@ def details(request, sticker_id):
     except:
         return render(request,'taggie/404.html',{})
     user_id = request.user
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id)})
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id),"lang_options":LANGUAGES_LIST})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):
@@ -183,6 +184,18 @@ def delete_tags(request):
     return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':sticker.make_json_str()})
 
 
+@login_required
+def delete_response_tags(request):
+
+    try:
+        sticker_id = request.POST['sid']
+        sticker = get_object_or_404(Sticker,pk=sticker_id)
+    except:
+        return render(request,'taggie/404.html',{})
+    tags_l = sticker.delete_response_tags()
+    return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':sticker.make_json_str()})
+
+
 @login_required(login_url='/login/')
 def logger_out(request):
     logout(request)
@@ -209,6 +222,9 @@ def language_updater(request):
         return render(request,'taggie/404.html',{})
 
     for tg in  request.POST.getlist('tag_set'):
-        ptag = sticker.tag_set.get(name=tg)
-        ptag.change_lang(request.POST.get('language').strip().lower())
+        try:
+            ptag = Tag.objects.get(pk=tg)
+            ptag.change_lang(request.POST.get('language').strip().lower())
+        except Exception as e:
+            print "Exeption is "+e.message
     return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':sticker.make_json_str()})
