@@ -210,6 +210,10 @@ def gisc_finale(request):
     print str(request.user)
     return render(request,'taggie/finale.html')
 
+def get_categ_json(request,categ='humanoid'):
+    som = Category.get_category_json_lang(categ,['english','hindi'])
+    return HttpResponse(som)
+
 @login_required(login_url='/login/')
 def language_updater(request):
     if (not request.POST.get('language')) or (not request.POST.get('tag_set')) or (not request.POST.get("sid")):

@@ -43,6 +43,7 @@
               <li ><a href="/tag/"><span class="glyphicon glyphicon-home"></span> home</a></li>
               <li><a href="{% url 'cat_list' %}"><span class="glyphicon glyphicon-star"></span> Sticker categories</a></li>
               <li class="active" ><a href="#">{{category|capfirst}} category</a></li>
+              <li  ><a href="/tag/categjosn/{{category}}/">get JSON</a></li>
             </ul>
               <ul class="nav navbar-nav navbar-right">
                   <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search_stick' %}">
@@ -84,3 +85,5 @@
 <script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
 </div>
 
+</body>
+</html>
