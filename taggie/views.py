@@ -84,12 +84,17 @@ def add(request,sticker_id):
 
     tag_set = hash_tags.strip(" ").split(',')
     tag_themes_list =  request.POST.get('tag_type',[])
-    print "tag_type "+str(tag_themes_list)
+    print "tag_type "+tag_themes_list
     logger.info("tag_type "+str(tag_themes_list))
     for htag in tag_set:
         print "htag = "+htag
         htag = htag.strip(" ")
         if htag == "":
+            continue
+        if str(tag_themes_list) == 'time':
+            print "setting atime"
+            s.time=int(htag)
+            s.save()
             continue
         try:
             print "looking for "+htag

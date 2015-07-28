@@ -6,9 +6,9 @@ from django.utils import timezone
 import json
 # Create your models here.
 
-tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*ctitle":"title","*atime":"time"}
-tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","title":"*ctitle","time":"*atime"}
-tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[],"*atime":[]}
+tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*ctitle":"title"}
+tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","title":"*ctitle"}
+tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[]}
 
 ### General function
 def get_names_of_list(list_to):
@@ -76,6 +76,7 @@ class Sticker(models.Model):
     like = models.IntegerField(default=0)
     rating = models.IntegerField(default=0)
     pub_date = models.DateTimeField('date added',auto_now_add=True, blank=True)
+    time = models.IntegerField(default=-1)
 
     def __str__(self):
         return ''.join([self.category,'-',self.name[4:]]).strip(".png")
@@ -105,6 +106,7 @@ class Sticker(models.Model):
     def del_all_tags(self):
         k = self.tag_set.all()
         k.delete()
+        self.time = -1
         return True
 
     def delete_response_tags(self):
@@ -120,11 +122,11 @@ class Sticker(models.Model):
 
 
     def get_lang_dep_json(self,langu):
-        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[],"*atime":[]}
+        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[]}
         spl['lang'] = langu
         spl['catId'] = self.category
         spl['sIds'] = self.name
-        #spl["*atime"] = "-1"
+        spl["*atime"] = self.time
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
 	        spl[tagthem_inv[str(tg.theme).strip(' ')]].append(tg.name)
@@ -177,9 +179,10 @@ class Sticker(models.Model):
         josn = {}
         josn["catId"] = self.category
         josn["sIds"] = self.name
+        josn["*atime"] = self.time
         for k,v in tagthem.items():
             josn[k] = self.get_tagnames_for_theme(tagtheme=v)
-            josn.update({"*atime" : -1})
+            #josn.update({"*atime" : -1})
         return josn
 
     def make_json_str(self):
