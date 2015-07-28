@@ -127,6 +127,7 @@ $(document).ready({
 									<form action="/tag/lang/" method="POST">
 										{% csrf_token %}
 										{% for tag in sticker.tag_set.all %}
+										{% if tag.theme  != "theme" %}
 
 
 										<div class="row">
@@ -142,6 +143,7 @@ $(document).ready({
 											<!--<input type="checkbox" class="form-control" id="makeMeDraggable" name="tag_set" data-tagname="{{tag.name}}">#{{tag.name}} </button>-->
 										</div>
 
+										{% endif %}
 										{% endfor %}
 										<br/>
 
