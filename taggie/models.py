@@ -127,6 +127,7 @@ class Sticker(models.Model):
         spl['catId'] = self.category
         spl['sIds'] = self.name
         spl["*atime"] = self.time
+        spl["*afestival"] = []
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
 	        spl[tagthem_inv[str(tg.theme).strip(' ')]].append(tg.name)
@@ -180,6 +181,7 @@ class Sticker(models.Model):
         josn["catId"] = self.category
         josn["sIds"] = self.name
         josn["*atime"] = self.time
+        josn["*afestival"] = []
         for k,v in tagthem.items():
             josn[k] = self.get_tagnames_for_theme(tagtheme=v)
             #josn.update({"*atime" : -1})
