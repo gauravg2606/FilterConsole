@@ -80,26 +80,33 @@ def add(request,sticker_id):
     except:
         return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json_str()})
 
+    print "request.POST "+str(request.POST)
+
     tag_set = hash_tags.strip(" ").split(',')
     tag_themes_list =  request.POST.get('tag_type',[])
     print "tag_type "+str(tag_themes_list)
     logger.info("tag_type "+str(tag_themes_list))
     for htag in tag_set:
+        print "htag = "+htag
         htag = htag.strip(" ")
         if htag == "":
             continue
         try:
+            print "looking for "+htag
             ta = s.tag_set.get(name=htag)
             ta.upvotes += 1
             ta.save()
             #add_tagtypes(ta.id, tag_themes_list)
         except ObjectDoesNotExist:
+            print htag+" not found! creating..."
             ta = s.tag_set.create(name=htag,theme=str(theme_type))
             s.save()
         if tag_themes_list is not None:
             if add_tagtypes(ta.id, tag_themes_list):
+                print "Tag themes added"
                 logger.info("Tag themes added")
             else:
+                print "Tag themes not updated"
                 logger.debug("Tag themes not updated")
     # return HttpResponseRedirect("/tag/"))
     return HttpResponseRedirect('/tag/'+sticker_id)

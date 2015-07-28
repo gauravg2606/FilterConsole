@@ -6,9 +6,9 @@ from django.utils import timezone
 import json
 # Create your models here.
 
-tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*afestival":"festival"}
-tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","festival":"*afestival"}
-tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*afestival":[]}
+tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*ctitle":"title","*atime":"time"}
+tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","title":"*ctitle","time":"*atime"}
+tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[],"*atime":[]}
 
 ### General function
 def get_names_of_list(list_to):
@@ -120,11 +120,11 @@ class Sticker(models.Model):
 
 
     def get_lang_dep_json(self,langu):
-        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*afestival":[]}
+        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[],"*atime":[]}
         spl['lang'] = langu
         spl['catId'] = self.category
         spl['sIds'] = self.name
-        spl["*atime"] = "-1"
+        #spl["*atime"] = "-1"
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
 	        spl[tagthem_inv[str(tg.theme).strip(' ')]].append(tg.name)
@@ -171,8 +171,8 @@ class Sticker(models.Model):
         "CResponse" : ["response1", "response2", "response3" ],
         "CGeneral" : ["general1", "general2", "general3" , "r3:general4", "r3:general5" ],
         "COther" : ["other1", "other2", "other3" ],
-        "AFestival" : ["festival1"]
-        "*atime":-1
+        "CTitle" : ["ctitle1"]
+        "*ATime" : ["atime1"]
         },"""
         josn = {}
         josn["catId"] = self.category
