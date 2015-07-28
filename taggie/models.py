@@ -7,7 +7,8 @@ import json
 # Create your models here.
 
 tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*afestival":"festival"}
-
+tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","festival":"*afestival"}
+tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*afestival":[]}
 
 ### General function
 def get_names_of_list(list_to):
@@ -44,6 +45,30 @@ class Category(models.Model):
             print "\n"
         return
 
+    @staticmethod
+    def get_category_json_lang(category,languages_list):
+        new_str = ""
+        json_list = []
+        for stick in Sticker.objects.filter(category=category):
+            for langu in languages_list:
+                temp =  stick.get_lang_dep_json(langu=langu)
+                json_list.append(temp)
+                new_str = new_str +temp
+                new_str = new_str +'<br/>'
+                print temp
+                print "\n"
+            print '\n\n'
+            new_str = new_str+'<br/>'
+        return new_str
+
+    @staticmethod
+    def get_category_csv(category,languages_list):
+        new_str = ""
+        json_list = []
+        for stick in Sticker.objects.filter(category=category):
+
+            new_str = new_str+'<br/>'
+        return new_str
 
 class Sticker(models.Model):
     name = models.CharField(max_length=40)
@@ -70,6 +95,7 @@ class Sticker(models.Model):
     def get_tags(self):
         for tag in self.tag_set.all():
             return ""
+
     @staticmethod
     def get_category_stickers(category):
         return Sticker.objects.filter(category=category)
@@ -88,8 +114,45 @@ class Sticker(models.Model):
         return True
 
 
+    def get_tag_set(self):
+        for tg in self.get_tag_set():
+            print tg.name
+
+
+    def get_lang_dep_json(self,langu):
+        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*afestival":[]}
+        spl['lang'] = langu
+        spl['catId'] = self.category
+        spl['sIds'] = self.name
+        spl["*atime"] = "-1"
+        for tg in  self.tag_set.filter(lang=langu):
+	    try:
+	        spl[tagthem_inv[str(tg.theme).strip(' ')]].append(tg.name)
+	    except:
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print self.name
+		print tg.name
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+		print "\n################\n" 
+        str_json = json.dumps(spl)
+        return str_json
+
+    def lang_get_tagnames_for_theme(self,lang_tags,tagtheme):
+        return get_names_of_list(lang_tags.filter(theme=tagtheme))
+
     def get_tagnames_for_theme(self,tagtheme):
         return get_names_of_list(list_to = self.tag_set.filter(theme=tagtheme))
+
 
     def make_json(self):
         """
@@ -98,7 +161,7 @@ class Sticker(models.Model):
         """
         """ {
         "cat_id": [cat_id1]
-        "sticker" : ["sticker_id.png"],
+        "sIds" : ["sticker_id.png"],
         "CTheme" : ["theme1", "theme2"],
         "CEmotion" : ["emotion1", "emotion2","emotion3", "r1:emotion", "r3:emotion"],
         "CFeeling" : ["feeling1", "feeling2" , "feeling3", "r4:feeling" ],
@@ -109,13 +172,14 @@ class Sticker(models.Model):
         "CGeneral" : ["general1", "general2", "general3" , "r3:general4", "r3:general5" ],
         "COther" : ["other1", "other2", "other3" ],
         "AFestival" : ["festival1"]
+        "*atime":-1
         },"""
         josn = {}
-        josn["cat_id"] = [self.category]
-        josn["sticker"] = [self.name]
+        josn["catId"] = self.category
+        josn["sIds"] = self.name
         for k,v in tagthem.items():
             josn[k] = self.get_tagnames_for_theme(tagtheme=v)
-
+            josn.update({"*atime" : -1})
         return josn
 
     def make_json_str(self):
