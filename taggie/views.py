@@ -223,7 +223,8 @@ def gisc_finale(request):
     return render(request,'taggie/finale.html')
 
 def get_categ_json(request,categ='humanoid'):
-    som = Category.get_category_json_lang(categ,['english','hindi'])
+    print "get_categ_json " + categ
+    som = Category.get_category_json_lang(categ,langconv.keys())
     return HttpResponse(som)
 
 @login_required(login_url='/login/')

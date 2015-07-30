@@ -9,6 +9,7 @@ import json
 tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*ctitle":"title"}
 tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","title":"*ctitle"}
 tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[]}
+langconv = {"english":"eng","hindi":"hin","marathi":"mar","hinglish":"hin","assamese":"asm","awadhi":"awa","bengali":"ben","bhojpuri":"bho","bundeli":"bns","chattisgarhi":"hne","dogri":"doi","garhwali":"gbm","gujarati":"guj","haryanvi":"bgc","hyderabadi":"dcc","kangri":"xnr","kannada":"kan","kashmiri":"kas","khariboli":"59-AAF-qd","kortha":"east2315","konkani":"kok","malayalam":"mal","malvi":"mup","oriya":"ori","punjabi":"pan","rajasthani":"raj","tamil":"tam","telugu":"tel","tulu":"tcy","urdu":"urd","garo":"grt","khasi":"kha","mizo":"lus","manipuri":"mni","kok borok":"trp","sikkim":"sip","nepali":"nep","bodo":"brx","lepcha":"lep","sindhi":"snd","nagamese":"nag","kumaoni":"kfy","maithili":"mai"}
 
 ### General function
 def get_names_of_list(list_to):
@@ -46,12 +47,15 @@ class Category(models.Model):
         return
 
     @staticmethod
-    def get_category_json_lang(category,languages_list):
+    def get_category_json_lang(cat,languages_list):
+        print "get_category_json_lang (" + cat
         new_str = ""
         json_list = []
-        for stick in Sticker.objects.filter(category=category):
+        for stick in Sticker.objects.filter(category=str(cat)):
             for langu in languages_list:
                 temp =  stick.get_lang_dep_json(langu=langu)
+                if temp == "":
+                    continue
                 json_list.append(temp)
                 new_str = new_str +temp
                 new_str = new_str +'<br/>'
@@ -123,14 +127,16 @@ class Sticker(models.Model):
 
     def get_lang_dep_json(self,langu):
         spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[]}
-        spl['lang'] = langu
+        spl['lang'] = langconv[langu]
         spl['catId'] = self.category
         spl['sIds'] = self.name
         spl["*atime"] = self.time
         spl["*afestival"] = []
+        count = 0;
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
 	        spl[tagthem_inv[str(tg.theme).strip(' ')]].append(tg.name)
+                count = count + 1
 	    except:
 		print "\n################\n" 
 		print "\n################\n" 
@@ -148,7 +154,10 @@ class Sticker(models.Model):
 		print "\n################\n" 
 		print "\n################\n" 
         str_json = json.dumps(spl)
-        return str_json
+        if (langu == 'english') or (count > 0):
+            return str_json
+        else:
+            return ""
 
     def lang_get_tagnames_for_theme(self,lang_tags,tagtheme):
         return get_names_of_list(lang_tags.filter(theme=tagtheme))
