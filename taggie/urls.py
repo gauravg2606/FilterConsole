@@ -18,7 +18,7 @@ urlpatterns =patterns("",
             url(r'^finale/$', views.gisc_finale, name='finale'),
             url(r'^dtags/$', views.delete_tags, name='dtags'),
             url(r'^dresptags/$', views.delete_response_tags, name='dresptags'),
-            url(r'^categjosn/(?P<categ>.*)/$', views.get_categ_json, name='categjson'),
+            url(r'^(?P<categ>.*)/categjosn/$', views.get_categ_json, name='categjson'),
             url(r'^lang/$', views.language_updater, name='lang'),
 )
 
