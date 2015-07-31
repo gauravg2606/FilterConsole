@@ -72,54 +72,46 @@ def add_tagtypes(tag_id,tags_types):
 def add(request,sticker_id):
     #print request
     s = get_object_or_404(Sticker,pk=sticker_id)
+    tagtypes_list = tagthem.values()
 
-
-    try:
-        theme_type = request.POST['tag_type']
-        hash_tags = str(request.POST.get('tag'))
-    except:
-        return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json_str()})
-
-    print "request.POST "+str(request.POST)
-
-    tag_set = hash_tags.strip(" ").split(',')
-    tag_themes_list =  request.POST.get('tag_type',[])
-    print "tag_type "+tag_themes_list
-    logger.info("tag_type "+str(tag_themes_list))
-    for htag in tag_set:
-        print "htag = "+htag
-        htag = htag.strip(" ")
-        if htag == "":
-            continue
-        if str(tag_themes_list) == 'time':
-            print "setting atime"
-            s.time=int(htag)
-            s.save()
-            continue
+    print "request.POST "+ str(request.POST)
+    for tagtype in tagtypes_list:
+        taglist = []
         try:
-            print "looking for "+htag
-            ta = s.tag_set.get(name=htag)
-            ta.upvotes += 1
-            ta.save()
+            taglist = request.POST.getlist(tagtype)
+        except:
+            return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json_str()})
+        taglist = [x.encode('UTF8') for x in taglist]
+        taglist = taglist[0].split(',')
+        taglist = [x.strip() for x in taglist]
+        if len(taglist[0]) == 0:
+            taglist = []
+        for tag in taglist:
+            print "tag " + str(tag) + " of type " + str(tagtype)
+            if tag == "":
+                continue
+            if str(tagtype) == 'time':
+                print "setting atime"
+                s.time=int(tag)
+                s.save()
+                continue
+            try:
+                ta = s.tag_set.get(name=tag)
+                ta.save()
+                print str(tag) + " already exists!"
             #add_tagtypes(ta.id, tag_themes_list)
-        except ObjectDoesNotExist:
-            print htag+" not found! creating..."
-            ta = s.tag_set.create(name=htag,theme=str(theme_type))
-            s.save()
-        if tag_themes_list is not None:
-            if add_tagtypes(ta.id, tag_themes_list):
-                print "Tag themes added"
-                logger.info("Tag themes added")
+            except ObjectDoesNotExist:
+                ta = s.tag_set.create(name=tag,theme=tagtype)
+                s.save()
+                print "Adding " + str(tag) + " to " + str(tagtype)
+            if add_tagtypes(ta.id, [str(tagtype)]):
+                print "Tag types added"
+                logger.info("Tag types added")
             else:
-                print "Tag themes not updated"
-                logger.debug("Tag themes not updated")
-    # return HttpResponseRedirect("/tag/"))
+                print "Tag types not updated"
+                logger.debug("Tag types not updated")
+
     return HttpResponseRedirect('/tag/'+sticker_id)
-# def add(request, ,sticker_id, tag):
-#     sticker = get_object_or_404(Sticker,pk=sticker_id)
-#     try:
-#         added_tag = sticker.tag_set.get()
-#     return ""
 
 @login_required(login_url='/login/')
 def category(request,catid):

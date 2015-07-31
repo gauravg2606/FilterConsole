@@ -176,16 +176,13 @@ $(document).ready({
 									{% csrf_token %}
 									<div class="input-group">
 										<span class="input-group-addon" id="sizing-addon2">#</span>
-										<input type="text" name="tag" class="form-control" placeholder="hashtags" aria-describedby="sizing-addon2">
 									</div>
 
 
 									{% if tag_types %}
 									{% for tag_type in tag_types %}
-									<span class="input-group-addon"><input type="radio" name="tag_type" value="{{tag_type.name}}"> {{tag_type.name}}</span>
-									{% if forloop.counter|divisibleby:3 %}
+									<span class="input-group-addon">{{tag_type.name}} <input type="text" name="{{tag_type.name}}" class="form-control" placeholder="hashtags" aria-describedby="sizing-addon2"></span>
 									<p></p>
-									{% endif %}
 									{% endfor %}
 									{% endif %}
 									<!--<input type="checkbox" aria-label="..." value="vehicle" name="vehicle">vehicle<br/>-->
