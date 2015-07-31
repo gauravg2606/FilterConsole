@@ -16,6 +16,7 @@ logger = logging.getLogger('taggie')
 
 LANGUAGES_LIST  = LangType.get_all_languages()
 tag_types = TagType.get_all_types()
+valid_themes = ["vt1","vt2","vt3","vt4"]
 
 @login_required(login_url='/login/')
 def index(request):
@@ -34,7 +35,7 @@ def details(request, sticker_id):
     except:
         return render(request,'taggie/404.html',{})
     user_id = request.user
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id),"lang_options":LANGUAGES_LIST})
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id),"lang_options":LANGUAGES_LIST,"valid_themes":valid_themes})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):
@@ -82,10 +83,11 @@ def add(request,sticker_id):
         except:
             return HttpResponseRedirect('/tag/'+sticker_id,{'sticker_json':s.make_json_str()})
         taglist = [x.encode('UTF8') for x in taglist]
-        taglist = taglist[0].split(',')
-        taglist = [x.strip() for x in taglist]
-        if len(taglist[0]) == 0:
-            taglist = []
+        if taglist:
+            taglist = taglist[0].split(',')
+            taglist = [x.strip() for x in taglist]
+            if len(taglist[0]) == 0:
+                taglist = []
         for tag in taglist:
             print "tag " + str(tag) + " of type " + str(tagtype)
             if tag == "":

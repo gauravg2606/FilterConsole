@@ -181,8 +181,18 @@ $(document).ready({
 
 									{% if tag_types %}
 									{% for tag_type in tag_types %}
-									<span class="input-group-addon">{{tag_type.name}} <input type="text" name="{{tag_type.name}}" class="form-control" placeholder="hashtags" aria-describedby="sizing-addon2"></span>
-									<p></p>
+									<span class="input-group-addon">{{tag_type.name}} 
+									{% if tag_type.name == "theme" %}
+									<select name="{{tag_type.name}}" class="form-control">
+										<option value="" selected="selected">Select a theme (optional)</option>
+										{% for theme in valid_themes %}
+										<option value="{{theme}}">{{theme}}</option>
+										{% endfor %}
+									</select>
+									{% else %}
+									<input type="text" name="{{tag_type.name}}" class="form-control" placeholder="hashtags" aria-describedby="sizing-addon2">
+									{% endif %}
+									</span><p />
 									{% endfor %}
 									{% endif %}
 									<!--<input type="checkbox" aria-label="..." value="vehicle" name="vehicle">vehicle<br/>-->
