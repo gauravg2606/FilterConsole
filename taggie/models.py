@@ -130,7 +130,7 @@ class Sticker(models.Model):
         spl['lang'] = langconv[langu]
         spl['catId'] = self.category
         spl['sIds'] = self.name
-        spl["*atime"] = self.time
+        spl["*atime"] = str(self.time)
         spl["*afestival"] = []
         count = 0;
         for tg in  self.tag_set.filter(lang=langu):
@@ -189,7 +189,7 @@ class Sticker(models.Model):
         josn = {}
         josn["catId"] = self.category
         josn["sIds"] = self.name
-        josn["*atime"] = self.time
+        josn["*atime"] = str(self.time)
         josn["*afestival"] = []
         for k,v in tagthem.items():
             josn[k] = self.get_tagnames_for_theme(tagtheme=v)
