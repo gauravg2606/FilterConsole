@@ -6,8 +6,8 @@ from django.utils import timezone
 import json
 # Create your models here.
 
-tagthem = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*ctitle":"title"}
-tagthem_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","title":"*ctitle"}
+tagtypes = {"*ctheme":"theme","*cemotion":"emotion","*cfeeling":"feeling","*cbehaviour":"behaviour","*creaction":"reaction","*csmiley":"smiley","*cresponse":"response","*cgeneral":"general","*cother":"other","*ctitle":"title"}
+tagtypes_inv = {"theme":"*ctheme","emotion":"*cemotion","feeling":"*cfeeling","behaviour":"*cbehaviour","reaction":"*creaction","smiley":"*csmiley","response":"*cresponse","general":"*cgeneral","other":"*cother","title":"*ctitle"}
 tagstarter = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[]}
 langconv = {"english":"eng","hindi":"hin","marathi":"mar","hinglish":"hin","assamese":"asm","awadhi":"awa","bengali":"ben","bhojpuri":"bho","bundeli":"bns","chattisgarhi":"hne","dogri":"doi","garhwali":"gbm","gujarati":"guj","haryanvi":"bgc","hyderabadi":"dcc","kangri":"xnr","kannada":"kan","kashmiri":"kas","khariboli":"59-AAF-qd","kortha":"east2315","konkani":"kok","malayalam":"mal","malvi":"mup","oriya":"ori","punjabi":"pan","rajasthani":"raj","tamil":"tam","telugu":"tel","tulu":"tcy","urdu":"urd","garo":"grt","khasi":"kha","mizo":"lus","manipuri":"mni","kok borok":"trp","sikkim":"sip","nepali":"nep","bodo":"brx","lepcha":"lep","sindhi":"snd","nagamese":"nag","kumaoni":"kfy","maithili":"mai"}
 
@@ -135,7 +135,7 @@ class Sticker(models.Model):
         count = 0;
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
-	        spl[tagthem_inv[str(tg.theme).strip(' ')]].append(tg.name)
+	        spl[tagtypes_inv[str(tg.theme).strip(' ')]].append(tg.name)
                 count = count + 1
 	    except:
 		print "\n################\n" 
@@ -159,11 +159,11 @@ class Sticker(models.Model):
         else:
             return ""
 
-    def lang_get_tagnames_for_theme(self,lang_tags,tagtheme):
-        return get_names_of_list(lang_tags.filter(theme=tagtheme))
+    def lang_get_tagnames_for_theme(self,lang_tags,tagtype):
+        return get_names_of_list(lang_tags.filter(theme=tagtype))
 
-    def get_tagnames_for_theme(self,tagtheme):
-        return get_names_of_list(list_to = self.tag_set.filter(theme=tagtheme))
+    def get_tagnames_for_theme(self,tagtype):
+        return get_names_of_list(list_to = self.tag_set.filter(theme=tagtype))
 
 
     def make_json(self):
@@ -191,8 +191,8 @@ class Sticker(models.Model):
         josn["sIds"] = self.name
         josn["*atime"] = str(self.time)
         josn["*afestival"] = []
-        for k,v in tagthem.items():
-            josn[k] = self.get_tagnames_for_theme(tagtheme=v)
+        for k,v in tagtypes.items():
+            josn[k] = self.get_tagnames_for_theme(tagtype=v)
             #josn.update({"*atime" : -1})
         return josn
 

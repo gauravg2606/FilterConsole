@@ -12,8 +12,6 @@ import logging
 
 logger = logging.getLogger('taggie')
 
-["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]
-
 LANGUAGES_LIST  = LangType.get_all_languages()
 tag_types = TagType.get_all_types()
 valid_themes = ["vt1","vt2","vt3","vt4"]
@@ -73,7 +71,7 @@ def add_tagtypes(tag_id,tags_types):
 def add(request,sticker_id):
     #print request
     s = get_object_or_404(Sticker,pk=sticker_id)
-    tagtypes_list = tagthem.values()
+    tagtypes_list = tagtypes.values()
 
     print "request.POST "+ str(request.POST)
     for tagtype in tagtypes_list:
