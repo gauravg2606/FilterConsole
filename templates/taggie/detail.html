@@ -177,8 +177,14 @@ $(document).ready({
 									<div class="input-group">
 										<span class="input-group-addon" id="sizing-addon2">#</span>
 									</div>
-
-
+									<span class="input-group-addon">time
+									<select name="time" class="form-control">
+										<option value="" selected="selected">Select a time (optional)</option>
+										{% for t in valid_times %}
+										<option value="{{t}}">{{t}}</option>
+										{% endfor %}
+									</select>
+									</span><p />
 									{% if tag_types %}
 									{% for tag_type in tag_types %}
 									<span class="input-group-addon">{{tag_type.name}} 

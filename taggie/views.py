@@ -18,6 +18,7 @@ valid_themes = ['hunger','party','hate', 'slangs','unhappy','sorry','movie','foo
                'evening','night','attitude','friendship','scared','girl','fun','happy','love','irritate',
                'music','shopping','work','flirt','sad','anger','politics','worry','travel','party','naughty',
                'season','generic','act','sport','college','city']
+valid_times = [-1,0,1,2,3,4,5,6,11,12,13,14,15]
 
 @login_required(login_url='/login/')
 def index(request):
@@ -36,7 +37,7 @@ def details(request, sticker_id):
     except:
         return render(request,'taggie/404.html',{})
     user_id = request.user
-    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id),"lang_options":LANGUAGES_LIST,"valid_themes":valid_themes})
+    return render(request,'taggie/detail.html',{'sticker':sticker,'tag_types':tag_types,'sticker_json':sticker.make_json_str(),'user':str(user_id),"lang_options":LANGUAGES_LIST,"valid_themes":valid_themes,"valid_times":valid_times})
 
 @login_required(login_url='/login/')
 def results(request,sticker_id):
@@ -75,6 +76,7 @@ def add(request,sticker_id):
     #print request
     s = get_object_or_404(Sticker,pk=sticker_id)
     tagtypes_list = tagtypes.values()
+    tagtypes_list.append('time')
 
     print "request.POST "+ str(request.POST)
     for tagtype in tagtypes_list:
@@ -89,6 +91,7 @@ def add(request,sticker_id):
             taglist = [x.strip() for x in taglist]
             if len(taglist[0]) == 0:
                 taglist = []
+        print "taglist: " + str(taglist)
         for tag in taglist:
             print "tag " + str(tag) + " of type " + str(tagtype)
             if tag == "":
