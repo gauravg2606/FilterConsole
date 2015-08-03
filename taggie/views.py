@@ -14,7 +14,10 @@ logger = logging.getLogger('taggie')
 
 LANGUAGES_LIST  = LangType.get_all_languages()
 tag_types = TagType.get_all_types()
-valid_themes = ["vt1","vt2","vt3","vt4"]
+valid_themes = ['hunger','party','hate', 'slangs','unhappy','sorry','movie','food','celebrate','morning',
+               'evening','night','attitude','friendship','scared','girl','fun','happy','love','irritate',
+               'music','shopping','work','flirt','sad','anger','politics','worry','travel','party','naughty',
+               'season','generic','act','sport','college','city']
 
 @login_required(login_url='/login/')
 def index(request):
