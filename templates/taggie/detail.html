@@ -127,7 +127,7 @@ $(document).ready({
 									<form action="/tag/lang/" method="POST">
 										{% csrf_token %}
 										{% for tag in sticker.tag_set.all %}
-										{% if tag.theme  != "theme" %}
+										{% if tag.tagtype  != "theme" %}
 
 
 										<div class="row">
@@ -179,9 +179,9 @@ $(document).ready({
 									</div>
 									<span class="input-group-addon">time
 									<select name="time" class="form-control">
-										<option value="" selected="selected">Select a time (optional)</option>
-										{% for t in valid_times %}
-										<option value="{{t}}">{{t}}</option>
+										<option value="" selected="selected">Change time (optional)</option>
+										{% for key, value in valid_times.items %}
+										<option value="{{key}}">{{key}} : {{value}}</option>
 										{% endfor %}
 									</select>
 									</span><p />
@@ -190,7 +190,7 @@ $(document).ready({
 									<span class="input-group-addon">{{tag_type.name}} 
 									{% if tag_type.name == "theme" %}
 									<select name="{{tag_type.name}}" class="form-control">
-										<option value="" selected="selected">Select a theme (optional)</option>
+										<option value="" selected="selected">Select a theme to add (optional)</option>
 										{% for theme in valid_themes %}
 										<option value="{{theme}}">{{theme}}</option>
 										{% endfor %}

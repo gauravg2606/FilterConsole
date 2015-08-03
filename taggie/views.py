@@ -18,7 +18,7 @@ valid_themes = ['hunger','party','hate', 'slangs','unhappy','sorry','movie','foo
                'evening','night','attitude','friendship','scared','girl','fun','happy','love','irritate',
                'music','shopping','work','flirt','sad','anger','politics','worry','travel','party','naughty',
                'season','generic','act','sport','college','city']
-valid_times = [-1,0,1,2,3,4,5,6,11,12,13,14,15]
+valid_times = {-1:"Not related to time",0:"Initiator (universal)",1:"Terminator (universal)",2:"Initiator/terminator (strictly related to morning)",3:"Initiator/terminator (strictly related to noon)",4:"Initiator/terminator (strictly related to afternoon)",5:"Initiator/terminator (strictly related to evening)",6:"Initiator/terminator (strictly related to night)",11:"Initiator/terminator (related to morning)",12:"Initiator/terminator (related to noon)",13:"Initiator/terminator (related to afternoon)",14:"Initiator/terminator (related to evening)",15:"Initiator/terminator (related to night)"}
 
 @login_required(login_url='/login/')
 def index(request):
@@ -58,9 +58,9 @@ def add_tagtypes(tag_id,tags_types):
         tag_ = Tag.objects.get(pk=tag_id)
         for tag_type in tag_types:
             try:
-                tag_.tagtheme_set.get(name=tag_type)
+                tag_.typestotag_set.get(name=tag_type)
             except ObjectDoesNotExist:
-                tag_.tagtheme_set.create(name=tag_type)
+                tag_.typestotag_set.create(name=tag_type)
     except ObjectDoesNotExist as e:
         print "1"+e.message
         logger.debug("1"+e.message)
@@ -107,7 +107,7 @@ def add(request,sticker_id):
                 print str(tag) + " already exists!"
             #add_tagtypes(ta.id, tag_themes_list)
             except ObjectDoesNotExist:
-                ta = s.tag_set.create(name=tag,theme=tagtype)
+                ta = s.tag_set.create(name=tag,tagtype=tagtype)
                 s.save()
                 print "Adding " + str(tag) + " to " + str(tagtype)
             if add_tagtypes(ta.id, [str(tagtype)]):

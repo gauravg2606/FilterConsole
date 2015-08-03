@@ -114,7 +114,7 @@ class Sticker(models.Model):
         return True
 
     def delete_response_tags(self):
-        resp_tags = self.tag_set.filter(theme='response')
+        resp_tags = self.tag_set.filter(tagtype='response')
         for tg in resp_tags:
             tg.delete()
         return True
@@ -135,7 +135,7 @@ class Sticker(models.Model):
         count = 0;
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
-	        spl[tagtypes_inv[str(tg.theme).strip(' ')]].append(tg.name)
+	        spl[tagtypes_inv[str(tg.tagtype).strip(' ')]].append(tg.name)
                 count = count + 1
 	    except:
 		print "\n################\n" 
@@ -160,10 +160,10 @@ class Sticker(models.Model):
             return ""
 
     def lang_get_tagnames_for_theme(self,lang_tags,tagtype):
-        return get_names_of_list(lang_tags.filter(theme=tagtype))
+        return get_names_of_list(lang_tags.filter(tagtype=tagtype))
 
     def get_tagnames_for_theme(self,tagtype):
-        return get_names_of_list(list_to = self.tag_set.filter(theme=tagtype))
+        return get_names_of_list(list_to = self.tag_set.filter(tagtype=tagtype))
 
 
     def make_json(self):
@@ -209,7 +209,7 @@ class Tag(models.Model):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     #theme =["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]
-    theme = models.CharField(max_length=20)
+    tagtype = models.CharField(max_length=20)
     lang = models.CharField(max_length=20,default='english')
     def __str__(self):
         return self.name
@@ -217,7 +217,7 @@ class Tag(models.Model):
         self.lang = langua
         self.save()
 
-class TagTheme(models.Model):
+class TypesToTag(models.Model):
     name = models.CharField(max_length=20)
     tag = models.ForeignKey(Tag)
     def __str__(self):

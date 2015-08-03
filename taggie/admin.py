@@ -1,11 +1,11 @@
 from django.contrib import admin
-from taggie.models import Sticker, Tag ,Category, TagTheme , TagType ,LangType
+from taggie.models import Sticker, Tag ,Category, TypesToTag , TagType ,LangType
 # Register your models here.
 
 
 
-class TagThemeInline(admin.TabularInline):
-    model = TagTheme
+class TypesToTagInline(admin.TabularInline):
+    model = TypesToTag
     extra = 2
     list_display = ['name']
 
@@ -13,7 +13,7 @@ class TagInline(admin.TabularInline):
     model = Tag
     list_display = ['name']
     extra = 3
-    inlines = [TagThemeInline]
+    inlines = [TypesToTagInline]
 
 class StickerAdmin(admin.ModelAdmin):
     # fields = ['name','category']
@@ -30,6 +30,6 @@ class LangAdmin(admin.TabularInline):
 
 admin.site.register(Sticker ,StickerAdmin)
 admin.site.register(Category)
-admin.site.register(TagTheme)
+admin.site.register(TypesToTag)
 admin.site.register(TagType)
 admin.site.register(LangType)
