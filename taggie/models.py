@@ -48,22 +48,32 @@ class Category(models.Model):
 
     @staticmethod
     def get_category_json_lang(cat,languages_list):
-        print "get_category_json_lang (" + cat
-        new_str = ""
-        json_list = []
+        languages_list.insert(0, languages_list.pop(languages_list.index('english'))) # Process english first
+        categoryJsonStr = ""
         for stick in Sticker.objects.filter(category=str(cat)):
+            stickerJsonStr = ""
+            themeValsStr = ""
             for langu in languages_list:
-                temp =  stick.get_lang_dep_json(langu=langu)
-                if temp == "":
-                    continue
-                json_list.append(temp)
-                new_str = new_str +temp
-                new_str = new_str +'<br/>'
-                print temp
-                print "\n"
-            print '\n\n'
-            new_str = new_str+'<br/>'
-        return new_str
+                langJsonStr = ""
+                langJson, nonThemeTagsInLang = stick.get_lang_dep_json(langu=langu)
+                if (langu == "english"):
+                    if (langJson["*ctheme"] == []):
+                        print "No themes in english!"
+                        break
+                    if (nonThemeTagsInLang == 0): # English has no non-theme tags, must be a regional sticker
+                        themeValsStr = langJson["*ctheme"] # Theme stored to be assigned later to the regional language
+                        continue
+                else:
+                    if (nonThemeTagsInLang == 0): # No (non-theme) tags in regional language
+                        continue # Ignore this regional language
+                    if (themeValsStr != ""): # Only happens when english has no non-theme tags
+                        langJson["*ctheme"] = themeValsStr # Assign theme retrieved from english language
+                langJsonStr = json.dumps(langJson)
+                print langJsonStr + "\n"
+                categoryJsonStr = categoryJsonStr + langJsonStr + '<br/>' # Line break after every language
+            print '\n'
+            categoryJsonStr = categoryJsonStr +'<br/>' # Empty line after every sticker
+        return categoryJsonStr
 
     @staticmethod
     def get_category_csv(category,languages_list):
@@ -126,17 +136,17 @@ class Sticker(models.Model):
 
 
     def get_lang_dep_json(self,langu):
-        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[]}
+        spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[],"*afestival":[]}
         spl['lang'] = langconv[langu]
         spl['catId'] = self.category
         spl['sIds'] = self.name
         spl["*atime"] = str(self.time)
-        spl["*afestival"] = []
-        count = 0;
+        nonThemeTags = 0
         for tg in  self.tag_set.filter(lang=langu):
 	    try:
-	        spl[tagtypes_inv[str(tg.tagtype).strip(' ')]].append(tg.name)
-                count = count + 1
+	        spl[tagtypes_inv[str(tg.tagtype).strip()]].append(tg.name)
+                if (str(tg.tagtype) != "theme"):
+                    nonThemeTags = nonThemeTags + 1
 	    except:
 		print "\n################\n" 
 		print "\n################\n" 
@@ -153,11 +163,7 @@ class Sticker(models.Model):
 		print "\n################\n" 
 		print "\n################\n" 
 		print "\n################\n" 
-        str_json = json.dumps(spl)
-        if (langu == 'english') or (count > 0):
-            return str_json
-        else:
-            return ""
+        return spl, nonThemeTags
 
     def lang_get_tagnames_for_theme(self,lang_tags,tagtype):
         return get_names_of_list(lang_tags.filter(tagtype=tagtype))
