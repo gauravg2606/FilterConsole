@@ -52,7 +52,6 @@ class Category(models.Model):
         categoryJsonStr = ""
         for stick in Sticker.objects.filter(category=str(cat)):
             stickerJsonStr = ""
-            themeValsStr = ""
             for langu in languages_list:
                 langJsonStr = ""
                 langJson, nonThemeTagsInLang = stick.get_lang_dep_json(langu=langu)
@@ -60,14 +59,9 @@ class Category(models.Model):
                     if (langJson["*ctheme"] == []):
                         print "No themes in english!"
                         break
-                    if (nonThemeTagsInLang == 0): # English has no non-theme tags, must be a regional sticker
-                        themeValsStr = langJson["*ctheme"] # Theme stored to be assigned later to the regional language
-                        continue
                 else:
                     if (nonThemeTagsInLang == 0): # No (non-theme) tags in regional language
                         continue # Ignore this regional language
-                    if (themeValsStr != ""): # Only happens when english has no non-theme tags
-                        langJson["*ctheme"] = themeValsStr # Assign theme retrieved from english language
                 langJsonStr = json.dumps(langJson)
                 print langJsonStr + "\n"
                 categoryJsonStr = categoryJsonStr + langJsonStr + '<br/>' # Line break after every language
