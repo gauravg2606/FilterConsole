@@ -133,7 +133,7 @@ class Sticker(models.Model):
         spl = {"*ctheme":[],"*cemotion":[],"*cfeeling":[],"*cbehaviour":[],"*creaction":[],"*csmiley":[],"*cresponse":[],"*cgeneral":[],"*cother":[],"*ctitle":[],"*afestival":[]}
         spl['lang'] = langconv[langu]
         spl['catId'] = self.category
-        spl['sIds'] = self.name
+        spl['sId'] = self.name
         spl["*atime"] = str(self.time)
         nonThemeTags = 0
         for tg in  self.tag_set.filter(lang=langu):
@@ -173,7 +173,7 @@ class Sticker(models.Model):
         """
         """ {
         "cat_id": [cat_id1]
-        "sIds" : ["sticker_id.png"],
+        "sId" : ["sticker_id.png"],
         "CTheme" : ["theme1", "theme2"],
         "CEmotion" : ["emotion1", "emotion2","emotion3", "r1:emotion", "r3:emotion"],
         "CFeeling" : ["feeling1", "feeling2" , "feeling3", "r4:feeling" ],
@@ -188,7 +188,7 @@ class Sticker(models.Model):
         },"""
         josn = {}
         josn["catId"] = self.category
-        josn["sIds"] = self.name
+        josn["sId"] = self.name
         josn["*atime"] = str(self.time)
         josn["*afestival"] = []
         for k,v in tagtypes.items():
