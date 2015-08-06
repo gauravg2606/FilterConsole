@@ -79,7 +79,7 @@ class Category(models.Model):
         return new_str
 
 class Sticker(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=64)
     category = models.CharField(max_length=20)
     like = models.IntegerField(default=0)
     rating = models.IntegerField(default=0)
