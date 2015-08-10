@@ -17,7 +17,7 @@ tag_types = TagType.get_all_types()
 valid_themes = ['hunger','party','hate', 'slangs','unhappy','sorry','movie','food','celebrate','morning',
                'evening','night','attitude','friendship','scared','girl','fun','happy','love','irritate',
                'music','shopping','work','flirt','sad','anger','politics','worry','travel','party','naughty',
-               'season','generic','act','sport','college','city']
+               'season','summer','winter','monsoon','spring','generic','act','sport','college','city','crime','family']
 valid_times = {-1:"Not related to time",0:"Initiator (universal)",1:"Terminator (universal)",2:"Initiator/terminator (strictly related to morning)",3:"Initiator/terminator (strictly related to noon)",4:"Initiator/terminator (strictly related to afternoon)",5:"Initiator/terminator (strictly related to evening)",6:"Initiator/terminator (strictly related to night)",11:"Initiator/terminator (related to morning)",12:"Initiator/terminator (related to noon)",13:"Initiator/terminator (related to afternoon)",14:"Initiator/terminator (related to evening)",15:"Initiator/terminator (related to night)"}
 
 @login_required(login_url='/login/')
