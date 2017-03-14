@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Taggie | {{category|capfirst}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 50%;
+      margin: auto;
+  }
+  .hike_image {
+       height: 300px;
+        width: 300px;
+      }
+   h1.white-text{
+      color:rgb(124, 156, 163);
+      }
+
+      .span10{
+        background: rgba(199, 197, 188, 0.38);
+          border-radius: 18px;
+          box-shadow: 1px 2px 3px rgba(148, 118, 118, 1);
+      .box{
+      padding: 35px;
+      }
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+    <div class=" col-sm-6 col-md-12" style="  background: rgba(0, 0, 0, 0.03);
+  border-radius: 15px;
+  padding: 25px;
+  box-sizing: initial;
+  box-shadow: 2px 2px 2px rgba(139, 153, 166, 1);
+  border: 18px;">
+    <div class="row box" style="padding: 25px;">
+
+    <div class="clearfix visible-md-block"></div>
+
+<div class="col-sm-4 col-md-4">
+
+    <h2> <span class="glyphicon glyphicon-heart"> Sticker Taggie <small align="right"><br/>login</small></h2>
+{% if form.errors %}
+   <div class="alert alert-danger" role="alert">
+<p>Your username and password didn't match!<br/>Please try again!</p>
+       </div>
+{% endif %}
+    <form method="post" action=".">
+{% csrf_token %}
+    <div class="input-group">
+
+  <span class="input-group-addon"> <span class="glyphicon glyphicon-user"></span></span>
+  <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+</div>
+    <br/>
+    <div class="input-group ">
+  <span class="input-group-addon">
+    <span class="glyphicon glyphicon-lock"></span>
+  </span>
+  <input class="form-control" name="password" type="password" placeholder="Password">
+</div>
+
+<input type="hidden" name="next" value="/" /><br/>
+<button type="submit" class="btn btn-default btn-md">
+  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Submit
+</button>
+</form>
+    </div>
+</div>
+    </div>
+</div>
+</body>
+</html>

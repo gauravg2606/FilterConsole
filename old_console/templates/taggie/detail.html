@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" >
+
+		<style>
+.sticker_image{
+	width:300px;
+	height:300px;
+}
+    .center_al{
+	    background: black;
+	    color: white;
+	    border-radius: 1em;
+	    padding: 1em;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    margin-right: -50%;
+	    transform: translate(-50%, -50%) }
+    .footer {
+	    position: absolute;
+	    bottom: 0;
+	    width: 100%;
+	    height: 60px;
+	    background-color: rgba(158, 244, 234, 0.48);
+    }
+    .english {
+	    background-color:rgba(86, 198, 86,1);
+	    background:rgba(86, 198, 86,1);
+    }
+    .hindi{
+	    background-color:rgba(51, 193, 193,1);
+	    background:rgba(51, 193, 193,1);
+    }
+    .telugu{
+	    .btn-warning
+    }
+
+		</style>
+
+
+
+
+		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script>
+$(document).ready({
+	function (){
+		$("#language").autocomplete({
+			source:["c++","JAVA"],
+			autoFocus: true,
+		});
+	}
+
+});
+
+
+
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+
+						<a href="#" class="navbar-brand  btn-lg">
+							<span class="glyphicon glyphicon-heart"></span> Sticker Taggie
+						</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li ><a href="/tag/"><span class="glyphicon glyphicon-home"></span> home</a></li>
+							<li><a href="{% url 'cat_list' %}">Categories</a></li>
+							<li><a href="{% url 'category' sticker.category %}">{{sticker.category|capfirst}} category</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search_stick' %}">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search" name="search" data-toggle="tooltip" data-placement="left" title="sticker name">
+								</div>
+								<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+							</form>
+							<li ><a href="/admin/taggie/sticker/{{sticker.id}}" target="_blank">Edit</a></li>
+							{% if user %}
+							<li ><a href="" >Hi, {{user}}</a></li>
+							{% endif %}
+							<li ><a href="{% url 'tlogout' %}">logout</a></li>
+							<li ><a href="#">かいぞく</a></li>
+						</ul>
+
+					</div><!--/.nav-collapse -->
+				</div><!--/.container-fluid -->
+			</nav>
+
+			<div class="jumbotron">
+				<div class="page-header">
+					<!--<h1>Category: {{sticker.category}} <small>Sticker name : {{sticker.name}}</small></h1>-->
+				</div>
+				<!--<h2>Category: {{sticker.category}} </h2>-->
+				<!--<h3>    Sticker name : {{sticker.name}}</h3>-->
+				<div class="row">
+					{% if error_message %}
+					<p>{{error_message}}</p>
+					{% endif %}
+
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<div class="content panel panel-info">
+
+
+								<p class="panel-heading">{{sticker.name}}</p>
+								<img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true&resId=HDPI" width="300" height="300" class="sticker_image" >
+
+
+								<div class="caption">
+									<p class="panel-body">
+									<form action="/tag/lang/" method="POST">
+										{% csrf_token %}
+										{% for tag in sticker.tag_set.all %}
+										{% if tag.tagtype  != "theme" %}
+
+
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<input type="checkbox" class="btn btn-info" aria-label="..." name="tag_set" value="{{tag.id}}">
+													</span>
+								<input type="button" class="btn btn-info {{tag.lang}}"  value="{{tag.name}}" aria-label="...">
+												</div><!-- /input-group-->
+											</div> <!-- /.col-lg-6 -->
+											<!--<input type="checkbox" class="form-control" id="makeMeDraggable" name="tag_set" data-tagname="{{tag.name}}">#{{tag.name}}-->
+											<!--<input type="checkbox" class="form-control" id="makeMeDraggable" name="tag_set" data-tagname="{{tag.name}}">#{{tag.name}} </button>-->
+										</div>
+
+										{% endif %}
+										{% endfor %}
+										<br/>
+
+										{%if lang_options %}
+
+
+										<select name="language"  class="btn btn-warning" style="width:100%;text-indent:45%;  height: 30px;">
+											{% for lang in lang_options %}
+											<option value = "{{lang}}">{{lang}}</option>
+											{% endfor%}
+										</select>
+										{% endif %}
+										<br/>
+										<input type="hidden" name="sid" value="{{sticker.id}}">
+										<input type="submit" class="btn btn-success" style="width:100%;" value="Submit"/>
+									</form>
+									</p>
+
+								</div>
+								<p class="panel-heading" align="justify"><a href="{% url 'category' sticker.category %}">{{sticker.category}} </a></p>
+							</div> <!-- END OF CAPTION-->
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-lg-6">
+						<div class="thumbnail">
+							<div class="content panel panel-info">
+								<!--<p class="panel-heading">{{sticker.category}}</p>-->
+								<form method="POST" action="/tag/{{sticker.id}}/add/">
+									{% csrf_token %}
+									<div class="input-group">
+										<span class="input-group-addon" id="sizing-addon2">#</span>
+									</div>
+									<span class="input-group-addon">time
+									<select name="time" class="form-control">
+										<option value="" selected="selected">Change time (optional)</option>
+										{% for key, value in valid_times.items %}
+										<option value="{{key}}">{{key}} : {{value}}</option>
+										{% endfor %}
+									</select>
+									</span><p />
+									{% if tag_types %}
+									{% for tag_type in tag_types %}
+									<span class="input-group-addon">{{tag_type.name}} 
+									{% if tag_type.name == "theme" %}
+									<select name="{{tag_type.name}}" class="form-control">
+										<option value="" selected="selected">Select a theme to add (optional)</option>
+										{% for theme in valid_themes %}
+										<option value="{{theme}}">{{theme}}</option>
+										{% endfor %}
+									</select>
+									{% else %}
+									<input type="text" name="{{tag_type.name}}" class="form-control" placeholder="hashtags" aria-describedby="sizing-addon2">
+									{% endif %}
+									</span><p />
+									{% endfor %}
+									{% endif %}
+									<!--<input type="checkbox" aria-label="..." value="vehicle" name="vehicle">vehicle<br/>-->
+									<!--<input type="checkbox" name="tag_type" value="theme">I have a bike<br>-->
+									<!--<!--["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]-->
+									<!--<input type="checkbox" name="tag_type" value="emotion">I have a car-->
+									<!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+									<!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+									<!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+									<!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+
+
+
+									<br/>
+									<input type="submit" class="btn btn-info" style="width:100%;" value="Submit"/>
+								</form>
+
+							</div>
+
+							<!--Tag : <input type="text" name="tag"/><br/>-->
+							{% if sticker_json %}
+							<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp"> </span>{{sticker_json}}</code></pre></div>
+
+
+								{% endif %}
+								<form method="POST" action="{% url 'dtags' %}">
+									{% csrf_token %}
+									<input type="hidden" name="sid" value="{{sticker.id}}">
+									<input type="submit" id="dtags" name="dtags" class="btn btn-danger" style="width:100%;" value="Delete all tags"/>
+								</form>
+
+								<form method="POST" action="{% url 'dresptags' %}">
+									{% csrf_token %}
+									<input type="hidden" name="sid" value="{{sticker.id}}">
+									<input type="submit" id="dresptags" name="dresptags" class="btn btn-warning" style="width:100%;" value="Delete all response tags"/>
+								</form>
+						</div>
+						<nav>
+							<ul class="pager">
+								<li><a href="/tag/{{sticker.id|add:'-1'}}">Previous</a></li>
+								<li><a href="/tag/{{sticker.id|add:'+1'}}">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
+
+		<script>
+$("#dtags").click(function(event){
+
+	if (confirm("Are you sure") == true) {
+		if(confirm("Let me ask you once more. You sure about this?") == true){
+
+		}
+		else{
+			event.preventDefault();
+			return false;
+		}
+
+	} else {
+		x = "You pressed Cancel!";
+		event.preventDefault();
+		return false;
+	}
+});
+
+		</script>
+
+		<script>
+$("#dresptags").click(function(event){
+
+	if (confirm("Are you sure") == true) {
+		if(confirm("Let me ask you once more. You sure about this?") == true){
+
+		}
+		else{
+			event.preventDefault();
+			return false;
+		}
+
+	} else {
+		x = "You pressed Cancel!";
+		event.preventDefault();
+		return false;
+	}
+});
+
+		</script>
+
+		<script>
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+})
+		</script>
+	</body>
+</html>

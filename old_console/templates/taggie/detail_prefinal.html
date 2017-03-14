@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style>
+    .sticker_image{
+        width:300px;
+        height:300px;
+    }
+    .center_al{
+        background: black;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) }
+    .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(158, 244, 234, 0.48);
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="page-header">
+  <!--<h1>Category: {{sticker.category}} <small>Sticker name : {{sticker.name}}</small></h1>-->
+</div>
+            <!--<h2>Category: {{sticker.category}} </h2>-->
+            <!--<h3>    Sticker name : {{sticker.name}}</h3>-->
+            <div class="row">
+            {% if error_message %}
+                <p>{{error_message}}</p>
+            {% endif %}
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="content panel panel-info">
+
+
+                    <p class="panel-heading">{{sticker.name}}</p>
+                    <img src="http://hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true&resId=HDPI"  class="sticker_image" >
+                         <div class="caption">
+                            <p class="panel-body">
+                             {% for tag in sticker.tag_set.all %}
+
+
+                                <button type="button" class="btn btn-success">#{{tag.name}} </button>
+                            {% endfor %}
+                             </p>
+
+                         </div>
+<p class="panel-heading">{{sticker.category}}</p>
+                        </div> <!-- END OF CAPTION-->
+            </div>
+            </div>
+
+                <div class="col-sm-6 col-lg-6">
+                <div class="thumbnail">
+                    <div class="content panel panel-info">
+                            <!--<p class="panel-heading">{{sticker.category}}</p>-->
+                            <form method="POST" action="/tag/{{sticker.id}}/add/">
+                    {% csrf_token %}
+                          <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">#</span>
+                          <input type="text" name="tag" class="form-control" placeholder="hashtags" aria-describedby="sizing-addon2">
+                            </div>
+
+
+                                {% if tag_types %}
+                                    {% for tag_type in tag_types %}
+                                        <span class="input-group-addon"><input type="checkbox" name="tag_type" value="{{tag_type.name}}"> {{tag_type.name}}</span>
+                                    {% if forloop.counter|divisibleby:3 %}
+                                        <p></p>
+                                    {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <!--<input type="checkbox" aria-label="..." value="vehicle" name="vehicle">vehicle<br/>-->
+                                <!--<input type="checkbox" name="tag_type" value="theme">I have a bike<br>-->
+                                <!--&lt;!&ndash;["THEME","EMOTION","FEELING","BEHAVIOUR","REACTION","SMILEY","RESPONSE","GENERAL","OTHER","REGIONAL"]&ndash;&gt;-->
+                                <!--<input type="checkbox" name="tag_type" value="emotion">I have a car-->
+                                <!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+                                <!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+                                <!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+                                <!--<input type="checkbox" name="tag_type" value="Car">I have a car-->
+
+
+
+                        <br/>
+                        <input type="submit" class="btn btn-info" style="width:100%;" value="Submit"/>
+                        </form>
+
+                        </div>
+
+                    <!--Tag : <input type="text" name="tag"/><br/>-->
+
+                    </div>
+<nav>
+  <ul class="pager">
+    <li><a href="/tag/{{sticker.id|add:'-1'}}">Previous</a></li>
+    <li><a href="/tag/{{sticker.id|add:'+1'}}">Next</a></li>
+  </ul>
+</nav>
+                </div>
+
+        </div>
+       </div>
+        </div>
+<footer class="footer">
+    <div class="container">
+        <p>Desgined by Patley</p>
+    </div>
+</footer>
+
+</body>
+</html>

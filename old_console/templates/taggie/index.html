@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style>
+  .thumbnail{
+      box-shadow: 6px 1px 20px rgba(186, 182, 182, 1);
+      }
+   .content > img{
+        height:300px;
+        width:300px;
+        }
+  </style>
+<body>
+
+<div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+        <a href="#" class="navbar-brand  btn-lg">
+          <span class="glyphicon glyphicon-heart"></span> Sticker Taggie
+      </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/tag/"><span class="glyphicon glyphicon-home"></span> home</a></li>
+              <li><a href="{% url 'cat_list'%}"><span class="glyphicon glyphicon-star"></span> Sticker categories</a></li>
+            </ul>
+              <ul class="nav navbar-nav nav-brand navbar-right">
+                  <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search_stick' %}">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search" name="search" data-toggle="tooltip" data-placement="left" title="sticker name">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+                  <li ><a href="{% url 'tlogout' %}">logout</a></li>
+              <li ><a href="#"><b>かいぞく</b></a></li>
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+
+    <div class="jumbotron">
+        <h1>Recently Added</h1>
+        {% if latest_stickers_list %}
+            {% for sticker in latest_stickers_list %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="content panel panel-info" id="cont">
+
+
+                        <p class="panel-heading">{{sticker.category}}</p><p class="panel-body">{{sticker.name}} <br/></p>
+                            <img src="http://staging.im.hike.in/sticker?catId={{sticker.category}}&stId={{sticker.name}}&image=true" alt="{{sticker.name}}" width="300" height="300">
+                        <a class="btn btn-info btn-group-justified" href="{% url 'details' sticker.id %}">Details</a>
+
+                    </div>
+                </div>
+             </div>
+
+            {% endfor %}
+        {% endif %}
+    </div>
+
+</div>
+
+
+
+
+
+
+<script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+<script async src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js" ></script>
+<script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+</html>
