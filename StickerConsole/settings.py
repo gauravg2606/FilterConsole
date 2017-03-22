@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'sticker_console.urls'
+ROOT_URLCONF = 'StickerConsole.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sticker_console.wsgi.application'
+WSGI_APPLICATION = 'StickerConsole.wsgi.application'
 
 
 # Database
