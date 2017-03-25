@@ -1,141 +1,428 @@
 {% load static %}
-<!DOCTYPE html>
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <!-- Change for better search engine indexing -->
-    <title>Sticker Tool</title>
-    <meta name="title" content="Web site" />
-    <meta name="description" content="Your Web site description here" />
-    <meta name="keywords" content="Your Web site keywords here" />
-    <meta name="subject" content="Your Web Site subject here" />
-    <meta name="copyright" content="Your company or organization" />
-    <meta name="robots" content="All" />
-    <meta name="abstract" content="Site description here" />
-    <meta name="MSSmartTagsPreventParsing" content="true" />
-    <link id="theme" rel="stylesheet" type="text/css" href="{% static 'style.css' %}" title="theme" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto|Open+Sans+Condensed:300|Roboto+Condensed:300|Roboto:300|Roboto:300|Roboto:300" type="text/css" />
-	<script type="text/javascript" language="javascript" src="js/jquery-1.8.1.min.js"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'js/script.js' %}"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'js/theme.js' %}"></script>
-	<script type="text/javascript" language="javascript" src="{% static 'js/custom.js' %}"></script>
-    <!-- Add your custom script here -->
-  </head>
-  <body>
-    <div id="wrapper">
-      <div class="bg"></div>
-      <div class="row">
-        <header id="container-top">
-          <div id="logo"></div>
-          <nav>
-            <div id="hmenu">
-              <ul>
-                <li>
-                  <a href="home.html">Home</a>
-                </li>
-                <li>
-                  <a href="#">Menu 1</a>
-                </li>
-                <li>
-                  <a href="#">Menu 2</a>
-                </li>
-                <li>
-                  <a href="#">Menu 3</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <div class="clear"></div>
-        </header>
-      </div>
-      <div class="row">
-        <div id="container" class="pie">
-          <div id="banner" class="pie">
-            <div id="tagline">
-              <h1>Welcome</h1>
-              <h2>Sticker Console</h2>
-              <input type="button" class="cta pie" value="Quick start..." />
-            </div>
-          </div>
-          <div id="page" class="home">
-            <div id="main">
-              <section class="home">
-                <header class="headline">
-                  <h2>We help you to create the best stickers experience</h2>
-                </header>
-                <div class="group wrapper">
-                  <div class="col span_1_of_3">
-                    <img src="{% static 'images/panoramic-108.jpg' %}" class="pano" />
-                    <header>
-                      <h3>What We Do</h3>
-                    </header>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rutrum lorem ex, eget iaculis nisl.</p>
-                    <input type="button" class="button medium style1 pie" value="More..." />
-                  </div>
-                  <div class="col span_1_of_3">
-                    <img src="{% static 'images/panoramic-115.jpg' %}" class="pano" />
-                    <header>
-                      <h3>Our Process</h3>
-                    </header>
-                    <p>In rutrum orci et dapibus aliquam. Morbi sit amet nulla ornare, hendrerit magna vitae, aliquam.</p>
-                    <input type="button" class="button medium style1 pie" value="More..." />
-                  </div>
-                  <div class="col span_1_of_3">
-                    <img src="{% static 'images/panoramic-109.jpg' %}" class="pano" />
-                    <header>
-                      <h3>Our Clients</h3>
-                    </header>
-                    <p>Duis at egestas nisi. Quisque tincidunt dolor vitae ante aliquam laoreet. Nullam ullamcorper a turpis.</p>
-                    <input type="button" class="button medium style1 pie" value="More..." />
-                  </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+        function disputeIframe(){setTimeout(function (){self.document.open();self.document.write("<h1><a style='font-weight: normal; color: #000; font-family: arial;' href='" + self.location.href + "' target='_top'>Iframes are not supported on a free plan.</a></h1>");                    self.document.close();},200);} try {if (self!=top){disputeIframe();}}catch(e){disputeIframe();}
+    </script>
+    <link href="//d33rxv6e3thba6.cloudfront.net/asset/sites/css/bootstrap3.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//d33rxv6e3thba6.cloudfront.net/asset/sites/css/font-awesome.min4.css">
+    <link href="//d33rxv6e3thba6.cloudfront.net/asset/sites/css/hover-min.css" rel="stylesheet">
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index_block.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index_default.css' %}" rel="stylesheet">
+    <link data="Template CSS" href="//sites.simbla.com/f700865e-ff5f-af6f-38de-b052d487386e/custom-temp.css"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Unica One:100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic">
+    <style type="text/css" data="MasterPage Custom CSS"></style>
+    <style type="text/css" data="Page Custom CSS"></style>
+    <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script>
+         if (!window.jQuery) {  document.write('<script src="//d33rxv6e3thba6.cloudfront.net/asset/sites/js/jquery.js"></scr' + 'ipt>'); }
+    </script>
+    <meta name="page-source" site="//sites.simbla.com/f700865e-ff5f-af6f-38de-b052d487386e" page="home"
+          site-id="5824a329e594f3da799ebb06" page-id="5824a329e594f3da799ebb09"
+          master-page-id="5824a329e594f3da799ebb0c">
+    <link rel="canonical" href="//sites.simbla.com/f700865e-ff5f-af6f-38de-b052d487386e/">
+</head>
+<body data-spy="scroll" data-target=".navbar-collapse" class="static-page">
+<div id="windowDiv" class="">
+    <div id="MarginsTop" style="height: 0px;" class="row"></div>
+    <div id="bodyContainer" style="width:100%">
+        <div class="simblaEL containerHolder noborder" data-drag="MP83" id="MP83" style="position: relative;"><a
+                class="simblaEL anchorElm" data-drag="divCounter" name="HeaderMP0" id="HeaderMP0"></a>
+            <div class="container" style="width: 100%;" data-title="Container">
+                <div class="simblaEL containerHolder" data-drag="MP85" id="MP85" style="position: relative;">
+                    <div class="container" style="padding-top: 40px;" data-title="Container">
+                        <div class="simblaEL simblaImg" data-drag="MP89" id="MP89" style=""><h1 align="center" style="color: white;">Content Console</h1><img draggable="false"
+                                                                                                 class=""
+                                                                                                 alt=""
+                                                                                                 data-id=""
+                                                                                                 title="logoinvert.png"
+                                                                                                 style="padding: 30px;"
+                                                                                                 src="">
+                        </div>
+                        <header class="simblaEL container-fluid" data-drag="MP93" id="MP93" data-title="Header"
+                                style="position: relative; padding-top: 50px;">
+                            <nav class="simblaEL menuHolder2 navbar navbar-default" data-drag="MP97" id="MP97"
+                                 data-type="solid" data-font="Helvetica" data-font-size="16" data-align="center"
+                                 data-group-type="horizontal" data-font-weight="Lighter" data-font-weight-hover="Bold"
+                                 data-font-weight-current="Bold" data-font-color="#ffffff"
+                                 data-font-color-hover="#ffffff" data-font-color-current="#ffffff" data-ind-color=""
+                                 data-ind-color-hover="" data-ind-color-current=""
+                                 data-menu-id="5824a329e594f3da799ebb0e">
+                                <div class="container-fluid">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                                data-target="[data-drag=&quot;MP97&quot;] .navbar-collapse"><span
+                                                class="sr-only">Toggle navigation</span><span
+                                                class="icon-bar"></span><span class="icon-bar"></span><span
+                                                class="icon-bar"></span></button>
+                                    </div>
+                                    <div class="collapse navbar-collapse">
+                                        <ul class="nav navbar-nav">
+                                            <li>
+                                                <a style="font-family:Helvetica;font-weight:Lighterpx;font-size:16px;line-height:16px;color:#ffffff;"
+                                                   class=" current" href="#"><span>Home</span></a></li>
+                                            <li>
+                                                <a style="font-family:Helvetica;font-weight:Lighterpx;font-size:16px;line-height:16px;color:#ffffff;"
+                                                   class="" href="/f700865e-ff5f-af6f-38de-b052d487386e/ourteam"><span>Our Team</span></a>
+                                            </li>
+                                            <li>
+                                                <a style="font-family:Helvetica;font-weight:Lighterpx;font-size:16px;line-height:16px;color:#ffffff;"
+                                                   class=""
+                                                   href="/f700865e-ff5f-af6f-38de-b052d487386e/contactus"><span>Contact Us</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </header>
+                    </div>
                 </div>
-                <div class="license wrapper">
-                  <!-- TO REMOVE -->
-                  <h3>License</h3>
-                  <p>This template is
-                    <span style="font-weight:bold">free for non commercial use</span>. You can use it for free if you are building a non profit personal website, a non profit organization website or a website for education purposes (schools, universities...). In such cases please keep the footer credit link visible and unchanged.
-                  </p>
-                  <h3>Commercial use</h3>
-                  <p>If you are building a website for resale, a website for a commercial activity or a website generating any kind of revenue, you must purchase this template.</p>
-                </div>
-              </section>
             </div>
-            <div class="clear" style="height:60px"></div>
-          </div>
-          <footer id="footer" class="pie">
-            <div class="bg"></div>
-            <div class="content">
-              <p>
-                <!-- Update your organization copyright --> Copyright - 2017 - Your Organization | All Rights Reserved
-              </p>
-              <p style="font-size:0.9em;line-height:3em">
-                <!-- This template is free. In respect with copyright, please keep this credit link visible and unmodified (except for translation purposes) --> Theme created with
-                <a href="http://www.dotemplate.com">doTemplate</a> free web template builder
-              </p>
-              <div>
-                <ul class="social-links">
-                  <li>
-                    <a href="#" rel="nofollow" style="background-image:url('static/images/facebook.png')">Be a fan on Facebook</a>
-                  </li>
-                  <li>
-                    <a href="#" rel="nofollow" style="background-image:url('images/twitter.png')">Follow us on Twitter</a>
-                  </li>
-                  <li>
-                    <a href="#" style="background-image:url('images/googleplus.png')">Circle us on Google+</a>
-                  </li>
-                  <li>
-                    <a href="#" rel="nofollow" style="background-image:url('images/rss.png')">RSS Feed</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </footer>
         </div>
-      </div>
-      <div class="row">
-        <div id="container-bottom"></div>
-      </div>
+        <div class="_dynamicContentArea simblaEL" type="dynamicContainer" data-drag="MP49" id="_MPID0"
+             style="position: relative;">
+            <div class="simblaEL containerHolder" data-drag="P0" id="P0" style=""><a class="simblaEL anchorElm"
+                                                                                     data-drag="divCounter"
+                                                                                     name="Intro0" id="Intro0"></a>
+                <div class="container-fluid minHeight100 active secondary" data-border-type="All"
+                     style="min-height: 699px; border-radius: 0px; background-image: url(&quot;//d33rxv6e3thba6.cloudfront.net/2016/3/5700d8ac89bdfa680c7c69de/21444-11qitpt.jpg&quot;); background-attachment: initial; background-size: cover; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: no-repeat;"
+                     data-title="Container">
+                    <div class="simblaEL containerHolder" data-drag="P2" id="P2">
+                        <div class="container" style="" data-title="Container">
+                            <div class="row simblaEL rDivider" data-drag="P12" id="P12"
+                                 style="position: relative; padding-top: 50px; padding-bottom: 30px;" data-title="Row">
+                                <div class="sDivider col-md-6 index0" data-colsize="6" data-title="Column">
+                                    <div class="row simblaEL rDivider" data-drag="P46" id="P46" data-title="Row"
+                                         style="position: relative; padding-bottom: 70px;">
+                                        <div class="sDivider col-md-3 index0" data-colsize="3"
+                                             data-title="Column"></div>
+                                        <div class="sDivider col-md-9 index1" data-colsize="9" data-title="Column">
+                                            <div class="row simblaEL rDivider" data-drag="P181" id="P181"
+                                                 data-title="Row" data-border-type="All"
+                                                 style="border-width: 8px; border-style: solid; border-color: rgb(255, 255, 255); border-radius: 0px; position: relative; padding-bottom: 40px;">
+                                                <div class="sDivider col-md-12 index0" data-colsize="12"
+                                                     data-title="Column">
+                                                    <div class="simblaEL tcH" data-drag="P14" id="P14"
+                                                         style="position: relative;">
+                                                        <div class="textContainer H1"
+                                                             style="padding: 10px 15px; border-radius: 0px;"
+                                                             data-border-type="All">
+                                                            <h1>Stickers
+                                                                <div>Content</div>
+                                                            </h1>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row simblaEL rDivider" data-drag="P51" id="P51"
+                                                         data-title="Row"
+                                                         style="position: relative; padding-bottom: 0px;">
+                                                        <div class="sDivider col-md-8 index0" data-colsize="8"
+                                                             data-title="Column">
+                                                            <div class="simblaEL tcH" data-drag="P49" id="P49">
+                                                                <div class="textContainer H3"><h3>Take a look</h3></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sDivider col-md-4 index1" data-colsize="4"
+                                                             data-title="Column" style="">
+                                                            <div class="simblaEL iconElm" data-drag="P177" id="P177"
+                                                                 style="position: relative; padding-top: 10px;"><a
+                                                                    href="http://sites.simbla.com/6bf974d7-32ec-8bf6-a712-b182806bdc34/ForRent?misc=1460026141775"><i
+                                                                    class="fa fa-angle-right"></i></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row simblaEL rDivider" data-drag="P40" id="P40" data-title="Row"
+                                         style="position: relative; padding-top: 20px;">
+                                        <div class="sDivider col-md-6 index0" data-colsize="6"
+                                             data-title="Column"></div>
+                                        <div class="sDivider col-md-6 index1" data-colsize="6"
+                                             data-title="Column"></div>
+                                    </div>
+                                    <div class="row simblaEL rDivider" data-drag="P277" id="P277" data-title="Row"
+                                         style="position: relative; padding-top: 20px;">
+                                        <div class="sDivider col-md-6 index0" data-colsize="6"
+                                             data-title="Column"></div>
+                                        <div class="sDivider col-md-6 index1" data-colsize="6" data-title="Column">
+                                            <div class="row simblaEL rDivider" data-drag="P288" id="P288"
+                                                 data-title="Row" data-border-type="All"
+                                                 style="border-width: 8px; border-style: solid; border-color: rgb(255, 255, 255); border-radius: 0px; position: relative; padding-top: 40px; padding-bottom: 40px; padding-right: 10px;">
+                                                <div class="sDivider col-md-12 index0" data-colsize="12"
+                                                     data-title="Column">
+                                                    <div class="simblaEL tcH" data-drag="P290" id="P290"
+                                                         style="position: relative;">
+                                                        <div class="textContainer H1"
+                                                             style="padding: 10px 15px; border-radius: 0px;"
+                                                             data-border-type="All">
+                                                            <h1>our
+                                                                <div>team</div>
+                                                            </h1>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row simblaEL rDivider" data-drag="P292" id="P292"
+                                                         data-title="Row"
+                                                         style="position: relative; padding-bottom: 0px;">
+                                                        <div class="sDivider col-md-8 index0" data-colsize="8"
+                                                             data-title="Column">
+                                                            <div class="simblaEL tcH" data-drag="P294" id="P294">
+                                                                <div class="textContainer H3"><h3>meet us</h3></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sDivider col-md-4 index1" data-colsize="4"
+                                                             data-title="Column">
+                                                            <div class="simblaEL iconElm" data-drag="P296" id="P296"
+                                                                 style="position: relative; padding-top: 10px;"><a
+                                                                    href="http://sites.simbla.com/6bf974d7-32ec-8bf6-a712-b182806bdc34/OurTeam?misc=1460026244078"><i
+                                                                    class="fa fa-angle-right"></i></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sDivider col-md-6 index1" data-colsize="6" data-title="Column">
+                                    <div class="row simblaEL rDivider" data-drag="P42" id="P42" data-title="Row"
+                                         style="position: relative; padding-top: 120px; padding-bottom: 70px;">
+                                        <div class="sDivider col-md-11 index0" data-colsize="11" data-title="Column">
+                                            <div class="row simblaEL rDivider" data-drag="P276" id="P276"
+                                                 data-title="Row" data-border-type="All"
+                                                 style="border-width: 8px; border-style: solid; border-color: rgb(255, 255, 255); border-radius: 0px; position: relative; padding-top: 20px; padding-bottom: 40px; padding-right: 0px;">
+                                                <div class="sDivider col-md-12 index0" data-colsize="12"
+                                                     data-title="Column">
+                                                    <div class="simblaEL tcH" data-drag="P25" id="P25"
+                                                         style="position: relative;">
+                                                        <div class="textContainer H1"
+                                                             style="padding: 10px 15px; border-radius: 0px;"
+                                                             data-border-type="All">
+                                                            <h1>Face Mask
+                                                                <div>Console</div>
+                                                            </h1>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row simblaEL rDivider" data-drag="P52" id="P52"
+                                                         data-title="Row"
+                                                         style="position: relative; padding-bottom: 0px;">
+                                                        <div class="sDivider col-md-8 index0" data-colsize="8"
+                                                             data-title="Column">
+                                                            <div class="simblaEL tcH" data-drag="P54" id="P54">
+                                                                <div class="textContainer H3"><h3>Take a look</h3></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sDivider col-md-4 index1" data-colsize="4"
+                                                             data-title="Column">
+                                                            <div class="simblaEL iconElm" data-drag="P178" id="P178"
+                                                                 style="position: relative; padding-top: 10px;"><a
+                                                                    href="http://sites.simbla.com/6bf974d7-32ec-8bf6-a712-b182806bdc34/forsale"><i
+                                                                    class="fa fa-angle-right"></i></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sDivider col-md-1 index1" data-colsize="1"
+                                             data-title="Column"></div>
+                                    </div>
+                                    <div class="row simblaEL rDivider" data-drag="P65" id="P65" data-title="Row"
+                                         style="position: relative; padding-top: 20px;">
+                                        <div class="sDivider col-md-9 index0" data-colsize="9" data-title="Column">
+                                            <div class="row simblaEL rDivider" data-drag="P279" id="P279"
+                                                 data-title="Row" data-border-type="All"
+                                                 style="border-width: 8px; border-style: solid; border-color: rgb(255, 255, 255); border-radius: 0px; position: relative; padding-top: 20px; padding-bottom: 20px; padding-right: 10px;">
+                                                <div class="sDivider col-md-12 index0" data-colsize="12"
+                                                     data-title="Column">
+                                                    <div class="simblaEL tcH" data-drag="P69" id="P69"
+                                                         style="position: relative;">
+                                                        <div class="textContainer H1"
+                                                             style="padding: 10px 15px 10px 10px; border-radius: 0px;"
+                                                             data-border-type="All">
+                                                            <h1>Talk
+                                                                <div>to us</div>
+                                                            </h1>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row simblaEL rDivider" data-drag="P71" id="P71"
+                                                         data-title="Row"
+                                                         style="position: relative; padding-bottom: 0px;">
+                                                        <div class="sDivider col-md-8 index0" data-colsize="8"
+                                                             data-title="Column">
+                                                            <div class="simblaEL tcH" data-drag="P73" id="P73">
+                                                                <div class="textContainer H3"><h3>LEAVE A MESSAGE</h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sDivider col-md-4 index1" data-colsize="4"
+                                                             data-title="Column">
+                                                            <div class="simblaEL iconElm" data-drag="P180" id="P180"
+                                                                 style="position: relative; padding-top: 10px;"><a
+                                                                    href="http://sites.simbla.com/6bf974d7-32ec-8bf6-a712-b182806bdc34/contactus"><i
+                                                                    class="fa fa-angle-right"></i></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sDivider col-md-3 index1" data-colsize="3"
+                                             data-title="Column"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="simblaEL simblaBlock footer1 footerBlock containerHolder noborder" data-drag="MP98" id="MP98"
+             style="position: relative;"><a class="simblaEL anchorElm" data-drag="divCounter" name="FooterMP1"
+                                            id="FooterMP1" data-id="5824a329e594f3da799ebb14"></a>
+            <div class="container main" style="width:100%;
+ " data-title="Container">
+                <div class="simblaEL containerHolder" data-drag="MP100" id="MP100">
+                    <div class="container" data-title="Container">
+                        <div class="row simblaEL rDivider" data-drag="MP102" id="MP102" style="padding: 50px 0px 0px;"
+                             data-title="Row">
+                            <div class="sDivider col-md-3 index0" data-colsize="3" data-title="Column">
+                                <div class="simblaEL tcH" data-drag="MP104" id="MP104" style="position: relative;">
+                                    <div class="textContainer H4"
+                                         style="cursor: text; padding-top: 0px; margin-top: 0px;"><h4>About Content Console
+                                    </h4></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP106" id="MP106" style="position: relative;">
+                                    <div class="textContainer"
+                                         style="cursor: text; margin-top: 15px; padding-bottom: 30px;"><p>Content console provides support to add stickers and fask mask content</p>
+                                        <p><br></p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP108" id="MP108" style="position: relative;"></div>
+                            </div>
+                            <div class="sDivider col-md-3 index1" data-colsize="3" data-title="Column">
+                                <div class="simblaEL tcH" data-drag="MP110" id="MP110">
+                                    <div class="textContainer H4 border"
+                                         style="cursor: text; /* border-bottom-width: 1px; */ /* border-bottom-style: solid; */ /* border-bottom-color: white; */">
+                                        <h4>Pages</h4></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP112" id="MP112" style="position: relative;">
+                                    <div class="textContainer"
+                                         style="cursor: text; padding-top: 2px; margin-top: 25px;"><p>Home</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP114" id="MP114">
+                                    <div class="textContainer" style="cursor: text;"><p>Sticker Content</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP116" id="MP116">
+                                    <div class="textContainer" style="cursor: text;"><p>Fask Marsk content</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP118" id="MP118">
+                                    <div class="textContainer" style="cursor: text;"><p>Our team</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP120" id="MP120">
+                                    <div class="textContainer" style="cursor: text;"><p>Contact us</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP124" id="MP124" style="position: relative;"></div>
+                                <div class="simblaEL tc" data-drag="MP126" id="MP126"></div>
+                                <div class="simblaEL tc" data-drag="MP128" id="MP128"></div>
+                                <div class="simblaEL tc" data-drag="MP130" id="MP130"></div>
+                                <div class="simblaEL tc" data-drag="MP132" id="MP132"></div>
+                                <div class="simblaEL tc" data-drag="MP134" id="MP134"></div>
+                            </div>
+                            <div class="sDivider col-md-3 index2" data-colsize="3" data-title="Column">
+                                <div class="simblaEL tc" data-drag="MP136" id="MP136"></div>
+                                <div class="simblaEL tcH" data-drag="MP138" id="MP138">
+                                    <div class="textContainer H4" style="cursor: text;"><h4>Contact info</h4></div>
+                                </div>
+                                <div class="simblaEL tcH" data-drag="MP140" id="MP140"></div>
+                                <div class="simblaEL tc" data-drag="MP142" id="MP142" style="position: relative;">
+                                    <div class="textContainer" style="cursor: text; padding-top: 25px;"><p>World Mark 1
+                                    </p>
+                                        <p>Aerocity, New Delhi</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP144" id="MP144" style="position: relative;">
+                                    <div class="textContainer" style="cursor: text; padding-top: 25px;"><p>Tel |
+                                        +1-212-456-7896
+                                    </p>
+                                        <p>Fax | +1-212-456-7896</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP146" id="MP146" style="position: relative;">
+                                    <div class="textContainer"
+                                         style="cursor: text; padding-top: 25px; padding-bottom: 30px;"><p>
+                                        www.hike.in
+                                    </p>
+                                        <p>service@company.com</p></div>
+                                </div>
+                            </div>
+                            <div class="sDivider col-md-3 index3" data-colsize="3" style="" data-title="Column">
+                                <div class="simblaEL simblaImg" data-drag="MP162" id="MP162"
+                                     style="position: relative;"><h1>Content Console</h1><img draggable="false" class="" alt=""
+                                                                      data-id="" title="logo-02.png"
+                                                                      style="margin-left: 0px; padding: 15px 15px 15px 1px;"
+                                                                      src="">
+                                </div>
+                                <div class="simblaEL tcH" data-drag="MP148" id="MP148">
+                                    <div class="textContainer H4" style="cursor: text;"><h4>Social media</h4></div>
+                                </div>
+                                <div class="simblaEL tcH" data-drag="MP150" id="MP150"></div>
+                                <div class="row simblaEL rDivider" data-drag="MP152" id="MP152"
+                                     style="padding: 50px 0px 0px; margin-bottom: 20px;" data-title="Row">
+                                    <div class="sDivider col-xs-3 index0" data-colsize="3" data-title="Column">
+                                        <div class="simblaEL iconElm" data-drag="MP154" id="MP154"><i
+                                                class="fa fa-dribbble" style="" data-color="" data-bgcolor=""
+                                                data-shadow="ns" data-border="circle"></i></div>
+                                    </div>
+                                    <div class="sDivider col-xs-3 index1" data-colsize="3" data-title="Column">
+                                        <div class="simblaEL iconElm" data-drag="MP156" id="MP156"><i
+                                                class="fa fa-facebook" style="" data-color="" data-bgcolor=""
+                                                data-shadow="ns" data-border="circle"></i></div>
+                                    </div>
+                                    <div class="sDivider col-xs-3 index2" data-colsize="3" data-title="Column">
+                                        <div class="simblaEL iconElm" data-drag="MP158" id="MP158"><i
+                                                class="fa fa-twitter" style="" data-color="" data-bgcolor=""
+                                                data-shadow="ns" data-border="circle"></i></div>
+                                    </div>
+                                    <div class="sDivider col-xs-3 index3" data-colsize="3" data-title="Column">
+                                        <div class="simblaEL iconElm" data-drag="MP160" id="MP160"><i
+                                                class="fa fa-instagram" style="" data-color="" data-bgcolor=""
+                                                data-shadow="ns" data-border="circle"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row simblaEL rDivider" data-drag="MP166" id="MP166"
+                             style="padding: 60px 0px 0px; margin-bottom: 30px; position: relative;" data-title="Row">
+                            <div class="sDivider col-md-6 index0" data-colsize="6" data-title="Column">
+                                <div class="simblaEL tc" data-drag="MP168" id="MP168">
+                                    <div class="textContainer" style="cursor: text;"><p>www.hike.in</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP170" id="MP170"></div>
+                                <div class="simblaEL tc" data-drag="MP172" id="MP172"></div>
+                            </div>
+                            <div class="sDivider col-md-6 index1" data-colsize="6" data-title="Column">
+                                <div class="simblaEL tc" data-drag="MP174" id="MP174">
+                                    <div class="textContainer" style="cursor: text;"><p>All rights reserved</p></div>
+                                </div>
+                                <div class="simblaEL tc" data-drag="MP176" id="MP176"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </body>
+</div>
+<link rel="stylesheet" type="text/css"
+      href="//d33rxv6e3thba6.cloudfront.net/asset/sites/sceditor/minified/themes/default.min.css">
+<script src="//d33rxv6e3thba6.cloudfront.net/asset/sites/sceditor/minified/jquery.sceditor.xhtml.min.js"></script>
+<script src="//d33rxv6e3thba6.cloudfront.net/asset/sites/js/jquery.bootpag.min.js"></script>
+<script src="//d33rxv6e3thba6.cloudfront.net/asset/sites/js/bootstrap3.min.js"></script>
+<script src="//d33rxv6e3thba6.cloudfront.net/asset/sites/js/Chart.min.js"></script>
+<script src="//d33rxv6e3thba6.cloudfront.net/asset/sites/js/numeral.min.js"></script>
+<script src="/static/js/simbla.js?v=2.0.1"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadRecaptcha&amp;render=explicit" async defer></script>
+</body>
 </html>
