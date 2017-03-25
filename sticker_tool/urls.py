@@ -1,7 +1,8 @@
 from django.conf.urls import url
-from tool import views
+from sticker_tool import views
 
 urlpatterns = [
     url(r'^$', views.HomePageView.as_view(), name='home'), # Notice the URL has been named
-    url(r'^about/$', views.AboutPageView.as_view(), name='about'),
-]
+    url(r'^index/$', views.IndexPageView.as_view(), name='index'),
+url(r'^testing/$', views.DropboxPageView.as_view(), name='testing')
+    ]
