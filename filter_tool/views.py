@@ -69,16 +69,17 @@ def upload_asset(request):
             return HttpResponse(currentForm.errors);
 
 def upload_filter(assetId,devType,currentForm):
-    print devType;
     urlFilter = "http://staging.im.hike.in/v2/ota_console/asset"
+    hour =  currentForm.cleaned_data["expiryTime"].hour
+    min = currentForm.cleaned_data["expiryTime"].minute
     dataFilter={
         "assetId" : assetId,
         "name":currentForm.cleaned_data["name"],
         "type" : currentForm.cleaned_data["type"],
         "devType":devType,
-        "op":currentForm.cleaned_data["op"],
-        "status":currentForm.cleaned_data["status"],
-        "expiry":epoch(currentForm.cleaned_data["expiry"]),
+        "op":1,
+        "status":1,
+        "expiry":epoch(currentForm.cleaned_data["expiryDate"],hour,min),
     }
     if(devType == "android"):
         dataFilter["appVersion"] = currentForm.cleaned_data["androidAppVersion"];
@@ -89,9 +90,9 @@ def upload_filter(assetId,devType,currentForm):
     filterResponse = requests.post(urlFilter,json=dataFilter)
     return filterResponse
 
-def epoch(value):
+def epoch(value,hour,min):
     try:
-        return int(time.mktime(value.timetuple())*1000)
+        return int(time.mktime(value.timetuple())*1000 + (hour*60*60 - 5.5*60*60 +min*60)*1000)
     except AttributeError:
         return ''
 

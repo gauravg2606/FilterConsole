@@ -1,8 +1,10 @@
 FILTER_TYPES = (
-    (1, ("Live Filters")),
-    (2, ("Story Stickers")),
-    (3, ("Video Sticker")),
-    (4, ("Miscellaneous")),
+    (1, ("STORY_FACE_MASKS")),
+    (2, ("STORY_GUIDE")),
+    (3, ("STORIES_STICKERS")),
+    (4, ("TEXT_STORIES_STICKERS")),
+    (5,("TEXT_STORIES_BG")),
+    (6,("STORY_STK_REACTION")),
 )
 
 PLATFORM_TYPES = (

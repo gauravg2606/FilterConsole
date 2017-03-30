@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'bootstrap3',
-    'bootstrap3_datepicker',
     'sticker_tool',#our sticker-sticker_tool app
     'filter_tool',# app for filter console
 ]
