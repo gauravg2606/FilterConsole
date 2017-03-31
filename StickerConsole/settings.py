@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'bootstrap3',
     'sticker_tool',#our sticker-sticker_tool app
+    'filter_tool',# app for filter console
 ]
 
 MIDDLEWARE = [

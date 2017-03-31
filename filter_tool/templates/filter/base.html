@@ -1,0 +1,23 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        Filter Upload
+    </title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'Launch' %}'">Launch Filters to App</button></div>
+    </div>
+    <div class="row">
+        {% block pagecontent %}
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>

@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('sticker_tool.urls'))
+    url(r'^stickers/', include('sticker_tool.urls')),
+    url(r'^filters/', include('filter_tool.urls'))
 ]
