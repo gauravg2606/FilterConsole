@@ -15,9 +15,6 @@ class FilterUpload(TemplateView):
         template_name = "form.html"
         return render(request, template_name, {'filter_form': filter_upload_form,'asset_form':asset_upload_form})
 
-def launchView(request):
-    template_name = 'filter_launch.html'
-    return render(request,template_name)
 
 def launch(request):
     urlLaunch = 'http://staging.im.hike.in/v2/ota_console/launch';

@@ -11,8 +11,13 @@
 </head>
 <body>
 <div class="container">
-    {% block pagecontent %}
-    {% endblock %}
+    <div class="row">
+        <div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'Launch' %}'">Launch Filters to App</button></div>
+    </div>
+    <div class="row">
+        {% block pagecontent %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>
