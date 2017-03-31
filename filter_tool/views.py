@@ -15,6 +15,20 @@ class FilterUpload(TemplateView):
         template_name = "form.html"
         return render(request, template_name, {'filter_form': filter_upload_form,'asset_form':asset_upload_form})
 
+def launchView(request):
+    template_name = 'filter_launch.html'
+    return render(request,template_name)
+
+def launch(request):
+    urlLaunch = 'http://staging.im.hike.in/v2/ota_console/launch';
+    responseLaunch = requests.post(urlLaunch)
+    if(responseLaunch.status_code >= 200 and responseLaunch.status_code < 400):
+        responseText = responseLaunch.json().get("stat");
+        if(responseText == 'ok'):
+            return HttpResponse("Successfully Launched")
+        else:
+            return HttpResponse("There was some error in launching")
+
 
 def upload_asset(request):
     if(request.method == 'POST'):
