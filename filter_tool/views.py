@@ -103,7 +103,7 @@ def upload_filter(assetId,devType,currentForm):
 
 def epoch(value,hour,min):
     try:
-        return int(time.mktime(value.timetuple())*1000 + (hour*60*60 - 5.5*60*60 +min*60)*1000)
+        return int(time.mktime(value.timetuple()) + (hour*60*60 - 5.5*60*60 +min*60))
     except AttributeError:
         return ''
 
