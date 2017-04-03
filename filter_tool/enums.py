@@ -13,8 +13,8 @@ PLATFORM_TYPES = (
 )
 
 OPERATION_TYPES = (
-    (1,("ADDITION")),
-    (0,("REMOVAL")),
+    (0,("ADDITION")),
+    (1,("REMOVAL")),
 )
 
 AVAILABILITY_STATUS = (

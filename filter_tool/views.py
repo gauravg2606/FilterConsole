@@ -45,7 +45,8 @@ def upload_asset(request):
                 uploadAny = True;
             if(uploadAny == False):
                 return HttpResponse("Either Android or iOS fields needs to be filled ");
-            r = requests.post(urlAsset, files=files,data={"type":'jpeg'})
+            file_type = fileToUpload.content_type.split('/')[1]
+            r = requests.post(urlAsset, files=files,data={"type":file_type})
             if(r.status_code >= 200 and r.status_code < 400):
                 assetId = r.json().get("assetId");
                 print assetId;
@@ -73,6 +74,7 @@ def upload_asset(request):
                     responseString = " Filter is not uploaded. Retry again";
                 return HttpResponse(responseString);
             else:
+                print r.text;
                 return HttpResponse("Errors uploading Asset. Try again");
 
         else:
@@ -88,7 +90,7 @@ def upload_filter(assetId,devType,currentForm):
         "name":currentForm.cleaned_data["name"],
         "type" : currentForm.cleaned_data["type"],
         "devType":devType,
-        "op":1,
+        "op":0,
         "status":1,
         "expiry":epoch(currentForm.cleaned_data["expiryDate"],hour,min),
     }
