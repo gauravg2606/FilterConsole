@@ -55,7 +55,7 @@ def upload_asset(request):
                 if (android == True):
                     filterResponseAndroid =  upload_filter(assetId,"android",currentForm);
                 if(ios == True):
-                    filterResponseIOS = upload_filter(assetId,"ios",currentForm);
+                    filterResponseIOS = upload_filter(assetId,"iPhone",currentForm);
                 successAndroid = False;
                 successIOS = False;
 
