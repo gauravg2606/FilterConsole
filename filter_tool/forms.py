@@ -1,6 +1,5 @@
 from django import forms
 from .enums import FILTER_TYPES
-from .enums import PLATFORM_TYPES
 from .enums import OPERATION_TYPES
 from .enums import AVAILABILITY_STATUS
 
@@ -25,6 +24,3 @@ class AssetForm(forms.Form):
 
 class FetchOrderForm(forms.Form):
     type = forms.ChoiceField(choices=FILTER_TYPES,label=" Filter Type")
-
-class UpdateOrderForm(forms.Form):
-    type = forms.ChoiceField(choices=FILTER_TYPES,label=" Filter Type",widget=forms.HiddenInput())

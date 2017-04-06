@@ -1,16 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .forms import FilterForm
-from .forms import AssetForm
 from .forms import FetchOrderForm
 from django.http import JsonResponse
 from django.http import HttpResponse
-from django.core import serializers
-from django.utils.html import escape
 import time
 import json
 import requests
-import urllib
 # Create your views here.
 class FilterUpload(TemplateView):
     def get(self, request, *args, **kwargs):
@@ -127,7 +123,6 @@ def upload_filter(assetId,devType,currentForm,filename):
         "status":1,
         "expiry":epoch(currentForm.cleaned_data["expiryDate"],hour,min),
     }
-    print dataFilter;
     if(devType == "android"):
         dataFilter["appVersion"] = currentForm.cleaned_data["androidAppVersion"];
         dataFilter["osVersion"] = currentForm.cleaned_data["androidOsVersion"];
