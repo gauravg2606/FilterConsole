@@ -2,17 +2,11 @@
 
 {% load bootstrap3 %}
 
+{% block OrderButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'OrderPage' %}'">Order Filters</button></div>
+{% endblock %}
 
 {% block pagecontent %}
-
-
-<!--<form action="/filters/upload_asset/" method="post" class="form" enctype="multipart/form-data">-->
-    <!--{% csrf_token %}-->
-    <!--{% bootstrap_form asset_form %}-->
-    <!--&lt;!&ndash;{{ asset_form }}&ndash;&gt;-->
-    <!--<input type="submit" value="Submit" />-->
-<!--</form>-->
-<!--<br>-->
 
 <form action="/filters/upload_asset/" method="post" class="form" enctype="multipart/form-data">
     {% csrf_token %}
