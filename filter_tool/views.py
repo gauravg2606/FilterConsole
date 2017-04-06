@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .forms import FilterForm
-from .forms import AssetForm
+from .forms import FetchOrderForm
 from django.http import JsonResponse
 from django.http import HttpResponse
 import time
@@ -11,9 +11,8 @@ import requests
 class FilterUpload(TemplateView):
     def get(self, request, *args, **kwargs):
         filter_upload_form = FilterForm();
-        asset_upload_form = AssetForm();
         template_name = "form.html"
-        return render(request, template_name, {'filter_form': filter_upload_form,'asset_form':asset_upload_form})
+        return render(request, template_name, {'filter_form': filter_upload_form})
 
 
 def launch(request):
@@ -27,10 +26,38 @@ def launch(request):
             return HttpResponse("There was some error in launching")
 
 
+def orderUpdate(request):
+    jsonData = json.loads(request.body);
+    if request.method == 'POST':
+        urlUpdateOrder = "http://staging.im.hike.in/v2/ota_console/order"
+        responseUpdate = requests.post(urlUpdateOrder,json=jsonData);
+        if(responseUpdate.status_code >=200 and responseUpdate.status_code < 400):
+            return JsonResponse({"success":"Received"})
+        else:
+            return JsonResponse({"error":"There was some error updating order"});
+
+def orderForm(request):
+    type = request.GET.get('type');
+    template_name = "form_order.html";
+    if(type is not None):
+        data={'type':type}
+        fetchOrderForm = FetchOrderForm(initial=data);
+        urlFetch = "http://staging.im.hike.in/v2/ota_console/order?features="+type;
+        r = requests.get(urlFetch);
+        if(r.status_code >= 200 and r.status_code < 400):
+            data = r.json();
+            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'data':data})
+        else:
+            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'error':"There was some error getting current order"})
+    else:
+        fetchOrderForm = FetchOrderForm();
+        return render(request,template_name,{'fetch_form':fetchOrderForm})
+
+
 def upload_asset(request):
     if(request.method == 'POST'):
         currentForm = FilterForm(request.POST, request.FILES);
-        urlAsset = 'http://dev-bots.hike.in/ams/v1/assets'
+        urlAsset = 'http://dev.platform.hike.in/ams/v1/assets'
         fileToUpload = request.FILES['fileToUpload']
         files = {'file': fileToUpload}
         android = False;
@@ -46,16 +73,16 @@ def upload_asset(request):
             if(uploadAny == False):
                 return HttpResponse("Either Android or iOS fields needs to be filled ");
             file_type = fileToUpload.content_type.split('/')[1]
+            name = fileToUpload.name.split('.'+file_type)[0];
             r = requests.post(urlAsset, files=files,data={"type":file_type})
             if(r.status_code >= 200 and r.status_code < 400):
                 assetId = r.json().get("assetId");
-                print assetId;
                 filterResponseAndroid = False;
                 filterResponseIOS = False;
                 if (android == True):
-                    filterResponseAndroid =  upload_filter(assetId,"android",currentForm);
+                    filterResponseAndroid =  upload_filter(assetId,"android",currentForm,name);
                 if(ios == True):
-                    filterResponseIOS = upload_filter(assetId,"iPhone",currentForm);
+                    filterResponseIOS = upload_filter(assetId,"iPhone",currentForm,name);
                 successAndroid = False;
                 successIOS = False;
 
@@ -81,13 +108,13 @@ def upload_asset(request):
             print currentForm.errors
             return HttpResponse(currentForm.errors);
 
-def upload_filter(assetId,devType,currentForm):
+def upload_filter(assetId,devType,currentForm,filename):
     urlFilter = "http://staging.im.hike.in/v2/ota_console/asset"
     hour =  currentForm.cleaned_data["expiryTime"].hour
     min = currentForm.cleaned_data["expiryTime"].minute
     dataFilter={
         "assetId" : assetId,
-        "name":currentForm.cleaned_data["name"],
+        "name":filename,
         "type" : currentForm.cleaned_data["type"],
         "devType":devType,
         "op":0,
