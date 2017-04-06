@@ -72,10 +72,8 @@ def upload_asset(request):
                 uploadAny = True;
             if(uploadAny == False):
                 return HttpResponse("Either Android or iOS fields needs to be filled ");
-            print "name = "+fileToUpload.name;
             file_type = fileToUpload.content_type.split('/')[1]
             name = fileToUpload.name.split('.'+file_type)[0];
-            print name;
             r = requests.post(urlAsset, files=files,data={"type":file_type})
             if(r.status_code >= 200 and r.status_code < 400):
                 assetId = r.json().get("assetId");
