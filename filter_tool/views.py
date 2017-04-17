@@ -4,6 +4,7 @@ from .forms import FilterForm
 from .forms import FetchOrderForm
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.conf import settings
 import time
 import json
 import requests
@@ -12,11 +13,11 @@ class FilterUpload(TemplateView):
     def get(self, request, *args, **kwargs):
         filter_upload_form = FilterForm();
         template_name = "form.html"
-        return render(request, template_name, {'filter_form': filter_upload_form})
+        return render(request, template_name, {'filter_form': filter_upload_form,"title":settings.HEADER_TITLE})
 
 
 def launch(request):
-    urlLaunch = 'http://staging.im.hike.in/v2/ota_console/launch';
+    urlLaunch = settings.LAUNCH_FILTERS_URL;
     responseLaunch = requests.post(urlLaunch)
     if(responseLaunch.status_code >= 200 and responseLaunch.status_code < 400):
         responseText = responseLaunch.json().get("stat");
@@ -29,7 +30,7 @@ def launch(request):
 def orderUpdate(request):
     jsonData = json.loads(request.body);
     if request.method == 'POST':
-        urlUpdateOrder = "http://staging.im.hike.in/v2/ota_console/order"
+        urlUpdateOrder = settings.UPDATE_FILTERS_ORDER_URL
         responseUpdate = requests.post(urlUpdateOrder,json=jsonData);
         if(responseUpdate.status_code >=200 and responseUpdate.status_code < 400):
             return JsonResponse({"success":"Received"})
@@ -42,22 +43,22 @@ def orderForm(request):
     if(type is not None):
         data={'type':type}
         fetchOrderForm = FetchOrderForm(initial=data);
-        urlFetch = "http://staging.im.hike.in/v2/ota_console/order?features="+type;
+        urlFetch = settings.FETCH_FILTERS_ORDER_URL+type;
         r = requests.get(urlFetch);
         if(r.status_code >= 200 and r.status_code < 400):
             data = r.json();
-            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'data':data})
+            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'data':data,"title":settings.HEADER_TITLE})
         else:
-            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'error':"There was some error getting current order"})
+            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'error':"There was some error getting current order","title":settings.HEADER_TITLE})
     else:
         fetchOrderForm = FetchOrderForm();
-        return render(request,template_name,{'fetch_form':fetchOrderForm})
+        return render(request,template_name,{'fetch_form':fetchOrderForm,"title":settings.HEADER_TITLE})
 
 
 def upload_asset(request):
     if(request.method == 'POST'):
         currentForm = FilterForm(request.POST, request.FILES);
-        urlAsset = 'http://dev.platform.hike.in/ams/v1/assets'
+        urlAsset = settings.UPLOAD_ASSET_URL
         fileToUpload = request.FILES['fileToUpload']
         files = {'file': fileToUpload}
         android = False;
@@ -109,7 +110,7 @@ def upload_asset(request):
             return HttpResponse(currentForm.errors);
 
 def upload_filter(assetId,devType,currentForm,filename):
-    urlFilter = "http://staging.im.hike.in/v2/ota_console/asset"
+    urlFilter = settings.UPLOAD_FILTER_URL
     hour =  currentForm.cleaned_data["expiryTime"].hour
     min = currentForm.cleaned_data["expiryTime"].minute
     dataFilter={
