@@ -4,5 +4,6 @@ db.sqlite3
 *.out
 *.DS_Store
 *.swp
+StickerConsole/settings/*
 old_console/taggie/migrations/
 *~
