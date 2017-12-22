@@ -3,6 +3,9 @@ from .enums import FILTER_TYPES
 from .enums import OPERATION_TYPES
 from .enums import AVAILABILITY_STATUS
 
+
+
+
 class FilterForm(forms.Form):
     DATE_FORMAT = '%m/%d/%Y'
     TIME_FORMAT = '%I:%M %p'

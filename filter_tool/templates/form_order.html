@@ -53,6 +53,7 @@ $(document).ready(function () {
         data = data.toString().split(',');
         for(var i = 0; i < data.length; i++){
             data[i] = decodeURI(data[i]);
+            console.log("data[i]", data[i]);
             data[i] = data[i].replaceAll("&#39;","'");
             data[i] = data[i].replaceAll("#39;","");
             data[i] = data[i].replaceAll("&amp;","&");
@@ -73,7 +74,6 @@ $(document).ready(function () {
         for(var i = 0; i < items.length; i++){
             <!--items[i] = encodeURI(items[i]);-->
         }
-        var urlUpdateOrder = "http://staging.im.hike.in/v2/ota_console/order";
         var body = {};
         if(type != 0){
             <!--body['csrfmiddlewaretoken']= "{{ csrf_token }}";-->

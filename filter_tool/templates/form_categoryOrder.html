@@ -1,0 +1,131 @@
+{% extends "filter/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block LaunchButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'Launch' %}'">Launch Filters to App</button></div>
+{% endblock %}
+
+{% block DeleteAssetButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'FetchAssetPage' %}'">Delete Asset</button></div>
+{% endblock %}
+
+{% block pagecontent %}
+
+
+
+<form action="/filters/categoryorder/" method="get" class="form" style="margin-top:20px;">
+    {% csrf_token %}
+    {% bootstrap_form fetch_form %}
+    {{ error }}
+    <input type="submit" value="Submit" />
+</form>
+
+
+<div id="bootstrapTagsInputForm" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Order</label>
+        <div style="margin:0 0 1.2em">
+            <textarea id="order"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-5 col-xs-offset-3">
+            <button type="submit" class="btn btn-default"id="submitBtn">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+$(document).ready(function () {
+
+    String.prototype.replaceAll = function (find, replace) {
+        var str = this;
+        return str.replace(new RegExp(find, 'g'), replace);
+    };
+    
+    var data = "{{data | join:','}}";
+    console.log("data after = ", data);
+    var type = 0;
+    if("{{type}}"){
+        type = "{{type}}";
+    }
+    var initialLength = 0;
+    if(data == ''){
+        $('#bootstrapTagsInputForm').hide();
+    }
+    else{
+        data = data.toString().split(',');
+        for(var i = 0; i < data.length; i++){
+            data[i] = decodeURI(data[i]);
+            data[i] = data[i].replaceAll("&#39;","'");
+            data[i] = data[i].replaceAll("#39;","");
+            data[i] = data[i].replaceAll("&amp;","&");
+            data[i] = data[i].replaceAll('amp;','');
+            var index = data.indexOf(data[i]);
+            if(index < i){
+                data.splice(i,1);
+                i--;
+            }
+        }
+        initialLength = data.length;
+    }
+    if(!initialLength){
+        $('#bootstrapTagsInputForm').hide();
+    }
+    $("#submitBtn").click(function(){
+        var items = $("#order").tagEditor('getTags')[0].tags;
+        for(var i = 0; i < items.length; i++){
+            <!--items[i] = encodeURI(items[i]);-->
+        }
+        var body = {};
+        if(type != 0){
+            <!--body['csrfmiddlewaretoken']= "{{ csrf_token }}";-->
+            body['type'] = type;
+            body["order"] = items;
+        }
+        else{
+            alert(" Type is not defined ");
+            return;
+        }
+        console.log("body = %j",body);
+        $.ajax({
+            url:"/filters/categoryorderupdate/",
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            data : JSON.stringify(body),
+            method:"POST",
+            dataType: 'json',
+            error:function(error){
+                alert(" Error = %j",error);
+            },
+            success: function (response) {
+                if(!response.error){
+                    alert(" Order updated successfully");
+                }
+                else{
+                    alert(" Error = %j",response.error);
+                }
+            }
+        })
+    })
+
+    $('#order').tagEditor({
+        initialTags: data,
+        delimiter: ', ', /* space and comma */
+        placeholder: 'Enter tags ...',
+        forceLowercase:false,
+        removeDuplicates : true,
+        sortable:true,
+        beforeTagDelete: function(field, editor, tags, val) {
+            alert(" You can't remove any tag. Just reorder them");
+            return false;
+        }
+    });
+});
+</script>
+
+{% endblock %}
+
+
+

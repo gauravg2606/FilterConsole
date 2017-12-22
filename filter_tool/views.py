@@ -26,7 +26,6 @@ def launch(request):
         else:
             return HttpResponse("There was some error in launching")
 
-
 def orderUpdate(request):
     jsonData = json.loads(request.body);
     if request.method == 'POST':
@@ -36,6 +35,8 @@ def orderUpdate(request):
             return JsonResponse({"success":"Received"})
         else:
             return JsonResponse({"error":"There was some error updating order"});
+
+
 
 def orderForm(request):
     type = request.GET.get('type');
@@ -47,7 +48,8 @@ def orderForm(request):
         r = requests.get(urlFetch);
         if(r.status_code >= 200 and r.status_code < 400):
             data = r.json();
-            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'data':data,"title":settings.HEADER_TITLE})
+            print data
+            return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type, 'data':data,"title":settings.HEADER_TITLE})
         else:
             return render(request,template_name,{'fetch_form':fetchOrderForm,'type':type,'error':"There was some error getting current order","title":settings.HEADER_TITLE})
     else:
@@ -113,6 +115,7 @@ def upload_filter(assetId,devType,currentForm,filename):
     urlFilter = settings.UPLOAD_FILTER_URL
     hour =  currentForm.cleaned_data["expiryTime"].hour
     min = currentForm.cleaned_data["expiryTime"].minute
+    category = currentForm.cleaned_data["category"]
     dataFilter={
         "assetId" : assetId,
         "name":filename,

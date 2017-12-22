@@ -3,8 +3,17 @@ FILTER_TYPES = (
     (2, ("STORY_GUIDE")),
     (3, ("STORIES_STICKERS")),
     (4, ("TEXT_STORIES_STICKERS")),
-    (5,("TEXT_STORIES_BG")),
-    (6,("STORY_STK_REACTION")),
+    (5, ("TEXT_STORIES_BG")),
+    (6, ("STORY_STK_REACTION")),
+    (7, ("SO_FILES")),
+    (8, ("BIN_FILES"))
+)
+
+FACE_FILTER_EFFECT_TYPES = (
+    (None,("NONE")),
+    ("mask", ("MASK")),
+    ("action", ("ACTION")),
+    ("filter", ("FILTER")),
 )
 
 PLATFORM_TYPES = (

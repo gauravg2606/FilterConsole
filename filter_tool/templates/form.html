@@ -2,6 +2,10 @@
 
 {% load bootstrap3 %}
 
+{% block ChangeFilterButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'Filter2 Upload' %}'">After Mrr Filters</button></div>
+{% endblock %}
+
 {% block OrderButton %}
 <div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'OrderPage' %}'">Order Filters</button></div>
 {% endblock %}

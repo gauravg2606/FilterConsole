@@ -1,0 +1,72 @@
+{% extends "filter/base.html" %}
+
+{% load bootstrap3 %}
+
+
+{% block ChangeFilterButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'Filter Upload' %}'">Before Mrr Filters</button></div>
+{% endblock %}
+
+
+{% block OrderCategoryButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'CategoryOrderPage' %}'">Order Category</button></div>
+{% endblock %}
+
+{% block OrderAssetButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'AssetOrderPage' %}'">Order Filters</button></div>
+{% endblock %}
+
+{% block DeleteAssetButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'FetchAssetPage' %}'">Delete Asset</button></div>
+{% endblock %}
+
+{% block CategoryImageUpload %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'CategoryUpload' %}'">Upload Category</button></div>
+{% endblock %}
+
+{% block pagecontent %}
+
+<form action="/filters/upload_asset2/" method="post" class="form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form filter_form %}
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+    <input type="submit" value="Submit" />
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+$(document).ready(function () {
+	console.log("Mrr")
+
+	if($("#id_type").val() != 1) {
+		$('label[for="id_effectType"]').hide();
+			$("#id_effectType").hide();
+	}
+
+	$("#id_type").change(function() {
+		console.log("getType");
+		var filterType = $(this).val();
+		console.log(filterType);
+		if(filterType == 1) {
+			$('label[for="id_effectType"]').show();
+			$("#id_effectType").show();
+		}else {
+			$('label[for="id_effectType"]').hide();
+			$("#id_effectType").hide();
+
+		}
+	})
+	
+
+})
+</script>
+
+{% endblock %}
+
+
+
+
+
+

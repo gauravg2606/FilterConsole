@@ -1,0 +1,136 @@
+{% extends "filter/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block ChangeFilterButton %}
+<div><button class="btn btn-primary pull-right" style="margin-top:10px;" onClick="window.location.href='{% url 'Filter2 Upload' %}'">After Mrr Filters</button></div>
+{% endblock %}
+
+{% block pagecontent %}
+
+<form action="/filters/categoryimageupload/" method="post" class="form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form category_form %}
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+
+    <div id = "categoryform" class="form-horizontal">
+
+        <div class="form-group">
+            
+                <button type="button" class="btn btn-default" id="getCategory">Get Category</button>
+            
+        </div>
+
+        <div id="bootstrapTagsInputForm" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Order</label>
+                <div style="margin:0 0 1.2em">
+                    <textarea id="order"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label">CategoryName</label>
+            <div style="margin:0 0 1.2em">
+                <input id = "category" type="text" placeholder="Enter Category Name">
+            </div>
+        </div>
+    </div>
+       
+	<input type="submit" id = "btn_submit" value="Submit" />
+</form>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+$(document).ready(function () {
+
+    String.prototype.replaceAll = function (find, replace) {
+        var str = this;
+        return str.replace(new RegExp(find, 'g'), replace);
+    };
+    var data = "{{data | join:','}}";
+    var type = 0;
+    if("{{type}}"){
+        type = "{{type}}";
+    }
+    var initialLength = 0;
+    if(data == ''){
+        $('#bootstrapTagsInputForm').hide();
+    }
+    else{
+        data = data.toString().split(',');
+        for(var i = 0; i < data.length; i++){
+            data[i] = decodeURI(data[i]);
+            data[i] = data[i].replaceAll("&#39;","'");
+            data[i] = data[i].replaceAll("#39;","");
+            data[i] = data[i].replaceAll("&amp;","&");
+            data[i] = data[i].replaceAll('amp;','');
+            var index = data.indexOf(data[i]);
+            if(index < i){
+                data.splice(i,1);
+                i--;
+            }
+        }
+        initialLength = data.length;
+    }
+    if(!initialLength){
+        $('#bootstrapTagsInputForm').hide();
+    }
+    $("#getCategory").click(function(){
+    	console.log("mrr");
+        filterType = $("#id_filterType").val();
+        console.log("filterType", $("#id_filterType").val());
+        $.ajax({
+            url:"/filters/getcategoryfortype/?filterType="+filterType,
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            method:"GET",
+            error:function(error){
+                alert(" Error = %j",error);
+            },
+            success: function (response) {
+                if(!response.error){
+                	var dd = "{{response.data | join:','}}"
+                	console.log("data ", response.data);
+
+                    $('#order').tagEditor('destroy');
+
+                	 $('#order').tagEditor({
+				        initialTags: response.data,
+				        delimiter: ', ', /* space and comma */
+				        placeholder: 'Enter tags ...',
+				        forceLowercase:false,
+				        removeDuplicates : true,
+				        sortable:true,
+				        beforeTagDelete: function(field, editor, tags, val) {
+				            alert(" You can't remove any tag. Just reorder them");
+				            return false;
+				        }
+				    });
+
+                	$('#bootstrapTagsInputForm').show();
+                }
+                else{
+                    alert(" Error = %j",response.error);
+                }
+            }
+        })
+    })
+
+    $("#btn_submit").click(function() {
+    	$("#id_category").val($("#category").val());
+    	console.log("mrr ", $("#id_category").val());
+    })
+
+   
+});
+</script>
+
+
+
+{% endblock %}
+
